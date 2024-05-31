@@ -1,0 +1,38 @@
+<resources>
+
+    <style name="TextRegular">
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:textColor">@color/dark_green</item>
+        <item name="android:fontFamily">@font/baloo2regular</item>
+
+    </style>
+
+    <style name="TextMedium">
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:textColor">@color/dark_green</item>
+        <item name="android:fontFamily">@font/baloo2medium</item>
+
+    </style>
+
+    <style name="TextSemiBold">
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:textColor">@color/dark_green</item>
+        <item name="android:fontFamily">@font/baloo2semibold</item>
+
+    </style>
+
+    <style name="TextBold">
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:textColor">@color/dark_green</item>
+        <item name="android:fontFamily">@font/baloo2bold</item>
+
+    </style>
+
+    <style name="TextExtraBold">
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:textColor">@color/dark_green</item>
+        <item name="android:fontFamily">@font/baloo2extrabold</item>
+
+    </style>
+
+</resources>
