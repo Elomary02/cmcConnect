@@ -2,6 +2,7 @@
     <string name="app_name">CmcConnect</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="splash_logo_text">CMC\nCONNECT</string>
     <string name="se_connecter">Se connecter</string>
     <string name="address_email">Addresse e-mail</string>
     <string name="password">Mot de passe</string>

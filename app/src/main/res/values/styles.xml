@@ -35,4 +35,36 @@
 
     </style>
 
+    <style name="TextRegular2">
+        <item name="android:textSize">19sp</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:textColor">@color/dark_green</item>
+        <item name="android:fontFamily">@font/baloo2regular</item>
+
+    </style>
+    <style name="TextRegularSwitch">
+        <item name="android:textSize">8sp</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:textColor">@color/color_selector_switch_toggle</item>
+        <item name="android:fontFamily">@font/baloo2regular</item>
+
+    </style>
+
+
+
+    <style name="CustomSwitchCompat" parent="Widget.AppCompat.CompoundButton.Switch">
+            <item name="trackTint">@null</item>
+            <item name="thumbTint">@null</item>
+        </style>
+
+    <style name="TextRegularMessage">
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColor">@color/dark_green</item>
+        <item name="android:fontFamily">@font/baloo2regular</item>
+
+    </style>
+
+
+
+
 </resources>
