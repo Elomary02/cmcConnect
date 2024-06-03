@@ -16,37 +16,10 @@
             android:name=".SplashScreen"
             android:exported="false" />
         <activity
-            android:name=".Test"
-            android:exported="false" />
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChatHomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".JustifActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RequestsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RessourcesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EventsDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EventsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DashboardActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
