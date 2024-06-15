@@ -17,4 +17,5 @@
     <string name="description">Description</string>
     <string name="request_motif">Entrez un motif pour votre demande...</string>
     <string name="send">Envoyer</string>
+    <string name="post">Soumettre</string>
 </resources>

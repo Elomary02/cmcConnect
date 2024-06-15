@@ -63,7 +63,13 @@
         <item name="android:fontFamily">@font/baloo2regular</item>
 
     </style>
-
+    <style name="roundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">25dp</item>
+    </style>
+    <style name="roundedImageCorners">
+        <item name="android:background">@drawable/shape_event_details_holder</item>
+    </style>
 
 
 

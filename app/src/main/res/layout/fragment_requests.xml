@@ -43,7 +43,7 @@
             android:textColor="@color/grey"/>
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/request_button"
             android:layout_width="310dp"
             android:layout_height="51dp"
             app:backgroundTint="@color/main_green_color"

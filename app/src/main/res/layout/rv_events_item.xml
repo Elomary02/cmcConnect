@@ -7,12 +7,13 @@
     android:layout_margin="16dp"
     android:background="@drawable/shape_event_item">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/event_poster"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_event_poster_two" />
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+        android:src="@drawable/img_event_poster_three" />
 
     <TextView
         android:id="@+id/event_date"
@@ -32,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:background="@drawable/shape_event_details_holder">
 
         <TextView
