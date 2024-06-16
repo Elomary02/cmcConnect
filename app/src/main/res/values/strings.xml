@@ -18,4 +18,6 @@
     <string name="request_motif">Entrez un motif pour votre demande...</string>
     <string name="send">Envoyer</string>
     <string name="post">Soumettre</string>
+    <string name="all_demands">Toutes les demandes</string>
+    <string name="reply">Répondre</string>
 </resources>
