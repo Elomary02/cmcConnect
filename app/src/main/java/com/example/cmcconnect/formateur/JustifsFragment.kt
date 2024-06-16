@@ -14,10 +14,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [SeeResourcesFragment.newInstance] factory method to
+ * Use the [JustifsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SeeResourcesFragment : Fragment() {
+class JustifsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,7 +35,7 @@ class SeeResourcesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.formateur_fragment_see_resources, container, false)
+        return inflater.inflate(R.layout.formateur_fragment_justifs, container, false)
     }
 
     companion object {
@@ -45,12 +45,12 @@ class SeeResourcesFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment SeeResourcesFragment.
+         * @return A new instance of fragment Justifs.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            SeeResourcesFragment().apply {
+            JustifsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
