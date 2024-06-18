@@ -20,4 +20,5 @@
     <string name="post">Soumettre</string>
     <string name="all_demands">Toutes les demandes</string>
     <string name="reply">Répondre</string>
+    <string name="answered_reqs">Demandes répondues</string>
 </resources>
