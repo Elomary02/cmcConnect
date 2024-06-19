@@ -22,4 +22,5 @@
     <string name="reply">Répondre</string>
     <string name="answered_reqs">Demandes répondues</string>
     <string name="pending">Demandes en attente</string>
+    <string name="toutes_les_filieres">Toutes les filieres</string>
 </resources>
