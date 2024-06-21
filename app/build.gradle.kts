@@ -64,6 +64,11 @@ dependencies {
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.androidx.lifecycle.livedata.ktx)
     implementation (libs.androidx.lifecycle.common.java8)
+    implementation(libs.androidx.cardview)
+    implementation (libs.circleimageview)
+    implementation (libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
+
 }
 kapt {
     correctErrorTypes = true
