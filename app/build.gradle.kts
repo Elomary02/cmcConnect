@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -50,7 +51,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.androidx.cardview)
+    implementation (libs.circleimageview)
+    implementation (libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
 
 }
