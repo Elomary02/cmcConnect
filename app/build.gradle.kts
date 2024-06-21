@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("plugin.serialization") version "1.9.20"
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -50,7 +53,18 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
-
+    implementation(libs.androidx.cardview)
+    implementation (libs.circleimageview)
+    implementation(libs.postgrest.kt)
+    implementation(libs.gotrue.kt)
+    implementation(libs.storage.kt)
+    implementation(libs.ktor.client.android)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.lifecycle.livedata.ktx)
+    implementation (libs.androidx.lifecycle.common.java8)
+}
+kapt {
+    correctErrorTypes = true
 }
