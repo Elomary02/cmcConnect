@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".admin.admin_assign_teacher_popup">
+    tools:context=".admin.adminAssignTeacher.admin_assign_teacher_popup">
     <RelativeLayout
         android:layout_width="302dp"
         android:layout_height="50dp"
