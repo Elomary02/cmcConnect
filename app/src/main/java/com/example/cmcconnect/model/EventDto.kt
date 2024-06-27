@@ -12,5 +12,6 @@ data class EventDto (
     val start_time: LocalTime,
     val end_time: LocalTime,
     val place: String,
-    val description: String
+    val description: String,
+    val poster: String
 ): java.io.Serializable

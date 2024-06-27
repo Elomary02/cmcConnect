@@ -9,5 +9,7 @@ data class StudentDto (
     val email: String,
     val phone: String,
     val image: String,
-    val id_groupe_fk: Int
+    val id_groupe_fk: Int,
+    val signInId: String,
+    val id_type_user_fk: Int
 ): java.io.Serializable
