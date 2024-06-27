@@ -7,47 +7,47 @@
 
     <fragment
         android:id="@+id/id_chatHomeFragment"
-        android:name="com.example.cmcconnect.ChatHomeFragment"
+        android:name="com.example.cmcconnect.shared.chatHome.ChatHomeFragment"
         android:label="fragment_chat_home"
         tools:layout="@layout/fragment_chat_home" />
     <fragment
         android:id="@+id/chatRoomFragment"
-        android:name="com.example.cmcconnect.ChatRoomFragment"
+        android:name="com.example.cmcconnect.shared.chatRoom.ChatRoomFragment"
         android:label="fragment_chat_room"
         tools:layout="@layout/fragment_chat_room" />
     <fragment
         android:id="@+id/id_dashboardFragment"
-        android:name="com.example.cmcconnect.DashboardFragment"
+        android:name="com.example.cmcconnect.shared.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/id_eventsFragment"
-        android:name="com.example.cmcconnect.EventsFragment"
+        android:name="com.example.cmcconnect.shared.events.EventsFragment"
         android:label="fragment_events"
         tools:layout="@layout/fragment_events" />
     <fragment
         android:id="@+id/eventsDetailsFragment"
-        android:name="com.example.cmcconnect.EventsDetailsFragment"
+        android:name="com.example.cmcconnect.shared.eventsDetails.EventsDetailsFragment"
         android:label="fragment_events_details"
         tools:layout="@layout/fragment_events_details" />
     <fragment
         android:id="@+id/id_justifFragment"
-        android:name="com.example.cmcconnect.JustifFragment"
+        android:name="com.example.cmcconnect.student.studentJustif.JustifFragment"
         android:label="fragment_justif"
         tools:layout="@layout/fragment_justif" />
     <fragment
         android:id="@+id/id_profileFragment"
-        android:name="com.example.cmcconnect.ProfileFragment"
+        android:name="com.example.cmcconnect.shared.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/id_requestsFragment"
-        android:name="com.example.cmcconnect.RequestsFragment"
+        android:name="com.example.cmcconnect.student.studentRequest.RequestsFragment"
         android:label="fragment_requests"
         tools:layout="@layout/fragment_requests" />
     <fragment
         android:id="@+id/id_resourcesFragment"
-        android:name="com.example.cmcconnect.ResourcesFragment"
+        android:name="com.example.cmcconnect.student.studentResource.ResourcesFragment"
         android:label="fragment_resources"
         tools:layout="@layout/fragment_resources" />
 </navigation>
