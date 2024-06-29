@@ -19,12 +19,12 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var emailEt : EditText
+    private lateinit var emailEt: EditText
     private lateinit var passwordEt: EditText
     private lateinit var loginBtn: Button
 
     private val signInViewModel: SignInViewModel by viewModels()
-    private val userViewModel : UserViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
     private val viewModel: TestViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,32 +41,35 @@ class LoginActivity : AppCompatActivity() {
 
             signInViewModel.onSignIn(userEmail, userPassword)
         }
-        viewModel.test.observe(this@LoginActivity, Observer {
-                test->Log.d("testData","$test")
+        viewModel.test.observe(this@LoginActivity, Observer { test ->
+            Log.d("testData", "$test")
         })
         viewModel.getYear()
         observeSignInState()
     }
 
-    private fun observeSignInState(){
+    private fun observeSignInState() {
         lifecycleScope.launchWhenStarted {
             signInViewModel.signInState.collect { state ->
                 when (state) {
                     is SignInViewModel.SignInState.Success -> {
                         if (state.success) {
                             Log.d("LoginActivity", "Sign-In success")
-                            /*signInViewModel.currentUserEmail.observe(this@LoginActivity, Observer { email ->
-                                userViewModel.getUserInfo(email)
-                                Log.d("userInfo","current user email $email")
-
-                                userViewModel.userInfoLiveDate.observe(this@LoginActivity) { userIn ->
-                                    UserInInfo.id = userIn.id
-                                    Log.d("userInName","${UserInInfo.id_type_user_fk}")
+                            userViewModel.userInfoLiveDate.observe(this@LoginActivity) { userInfo ->
+                                Log.d("userInInfo", "$userInfo")
+                                if (userInfo != null) {
+                                    UserInInfo.id = userInfo.id!!
+                                    UserInInfo.name = userInfo.name.toString()
+                                    UserInInfo.email = userInfo.email.toString()
+                                    UserInInfo.phone = userInfo.phone.toString()
+                                    UserInInfo.image = userInfo.image.toString()
+                                    UserInInfo.id_type_user_fk = userInfo.id_type_user_fk!!
                                 }
-                            })*/
-                            signInViewModel.getCurrentUserEmail()
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            startActivity(intent)
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                startActivity(intent)
+                            }
+                            userViewModel.getUserInInfo()
+
                         } else {
 
                         }
