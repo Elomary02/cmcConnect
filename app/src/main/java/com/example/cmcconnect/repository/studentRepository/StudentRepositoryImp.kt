@@ -9,13 +9,6 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class StudentRepositoryImp @Inject constructor(private val postgrest: Postgrest): StudentRepository {
-    override suspend fun getAllResources(): List<RessourceDto>? {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getRecentResources(): List<RessourceDto>? {
-        TODO("Not yet implemented")
-    }
 
     override suspend fun getRecentResourcesForStudentGroup(idStudent: Int): List<RessourceDto>? {
         return try {
