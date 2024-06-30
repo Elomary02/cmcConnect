@@ -34,11 +34,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="483dp"
+            android:layout_height="590dp"
             android:orientation="vertical"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="248dp"
-            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/background_image"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@drawable/shape_event_descreption">
 
             <TextView
@@ -49,8 +50,10 @@
                 android:textSize="29sp"
                 style="@style/TextSemiBold"
                 android:layout_gravity="start"
-                android:layout_margin="25dp" />
-            
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="12dp"/>
+
             <RelativeLayout
                 android:layout_width="150dp"
                 android:layout_height="45dp"
@@ -63,7 +66,7 @@
                     android:src="@drawable/icon_calendar"
                     android:padding="9.5dp"
                     android:background="@drawable/shape_event_local_time"/>
-                
+
                 <TextView
                     android:id="@+id/event_date"
                     android:layout_width="90dp"
@@ -86,11 +89,11 @@
                     style="@style/TextMedium"
                     android:textSize="14sp"
                     android:textColor="@color/dark_green"/>
-                    
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="150dp"
+                android:layout_width="300dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="20dp">
@@ -105,7 +108,7 @@
 
                 <TextView
                     android:id="@+id/event_place"
-                    android:layout_width="90dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/icon_localisation"
                     android:text="Amphithéatre"
