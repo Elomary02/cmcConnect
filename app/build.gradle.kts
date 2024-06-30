@@ -20,6 +20,12 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    android {
+        buildFeatures {
+            viewBinding = true
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -68,6 +74,8 @@ dependencies {
     implementation (libs.circleimageview)
     implementation (libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.glide)
+    kapt(libs.compiler)
 
 }
 kapt {
