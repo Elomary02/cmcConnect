@@ -63,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
                                     UserInInfo.email = userInfo.email.toString()
                                     UserInInfo.phone = userInfo.phone.toString()
                                     UserInInfo.image = userInfo.image.toString()
+                                    UserInInfo.id_groupe_fk = userInfo.id_groupe_fk
                                     UserInInfo.id_type_user_fk = userInfo.id_type_user_fk!!
                                 }
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)

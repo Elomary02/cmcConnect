@@ -8,4 +8,5 @@ object UserInInfo {
     var image: String = ""
     var signInId: String = ""
     var id_type_user_fk: Int = 0
+    var id_groupe_fk: Int? = null
 }
