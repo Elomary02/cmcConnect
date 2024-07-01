@@ -1,9 +1,11 @@
 package com.example.cmcconnect.repository.studentRepository
 
+import android.net.Uri
 import android.util.Log
+import android.content.Context
+import io.github.jan.supabase.SupabaseClient
 import com.example.cmcconnect.model.AdminDto
 import com.example.cmcconnect.model.JustifToSend
-import com.example.cmcconnect.model.RequestDto
 import com.example.cmcconnect.model.RequestToSend
 import com.example.cmcconnect.model.RequestTypeDto
 import com.example.cmcconnect.model.RessourceDto
@@ -11,13 +13,16 @@ import com.example.cmcconnect.model.TeacherDto
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
+import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
-class StudentRepositoryImp @Inject constructor(private val postgrest: Postgrest): StudentRepository {
+class StudentRepositoryImp @Inject constructor(
+    private val context: Context,
+    private val postgrest: Postgrest,
+    private val supabase: SupabaseClient
+): StudentRepository {
 
     override suspend fun getRecentResourcesForStudentGroup(idStudent: Int): List<RessourceDto>? {
         return try {
@@ -59,32 +64,42 @@ class StudentRepositoryImp @Inject constructor(private val postgrest: Postgrest)
                 val groupId = groupIdResult["id_groupe_fk"]
                 Log.d("groupId", groupId.toString())
 
-                val teacherIdResult = postgrest.from("cours").select(Columns.raw("id_teacher_fk")) {
-                    filter {
-                        if (groupId != null) {
+                if (groupId != null) {
+                    val teacherIdResults = postgrest.from("cours").select(Columns.raw("id_teacher_fk")) {
+                        filter {
                             eq("id_groupe_fk", groupId)
                         }
-                    }
-                }.decodeSingle<Map<String, Int>>()
-                val teacherId = teacherIdResult["id_teacher_fk"]
-                Log.d("teacherId", teacherId.toString())
+                    }.decodeList<Map<String, Int>>()
+                    val teacherIds = teacherIdResults.mapNotNull { it["id_teacher_fk"] }
+                    Log.d("teacherIds", teacherIds.toString())
 
-                val teachers = postgrest.from("teacher").select(Columns.ALL) {
-                    filter {
-                        if (teacherId != null) {
-                            eq("id", teacherId)
-                        }
-                    }
-                }.decodeList<TeacherDto>()
+                    if (teacherIds.isNotEmpty()) {
+                        val teachers = postgrest.from("teacher").select(Columns.ALL) {
+                            filter {
+                                or {
+                                    teacherIds.forEach { teacherId ->
+                                        eq("id", teacherId)
+                                    }
+                                }
+                            }
+                        }.decodeList<TeacherDto>()
 
-                Log.d("teachers", teachers.toString())
-                teachers
+                        Log.d("teachers", teachers.toString())
+                        teachers
+                    } else {
+                        emptyList()
+                    }
+                } else {
+                    emptyList()
+                }
             }
         } catch (e: Exception) {
             Log.e("loadTeachersForStudent", "Error loading teachers", e)
             emptyList()
         }
     }
+
+
 
     override suspend fun getStudentAdmin(idStudent: Int): AdminDto {
         return try {
@@ -144,15 +159,34 @@ class StudentRepositoryImp @Inject constructor(private val postgrest: Postgrest)
         }
     }
 
+    override suspend fun uploadFileToBucket(uri: Uri, fileName: String): String? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            val byteArray = inputStream?.readBytes()
+            inputStream?.close()
+
+            if (byteArray != null) {
+                supabase.storage.from("justif_docs").upload(fileName, byteArray)
+                "https://qoyjtvmvqtubjbwrlhgq.supabase.co/storage/v1/object/public/justif_docs/$fileName"
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log.e("uploadFileToBucket", "Error uploading file", e)
+            null
+        }
+    }
+
+
     override suspend fun sendJustif(justif: JustifToSend): Boolean {
         return try {
             withContext(Dispatchers.IO) {
                 postgrest.from("justif").insert(justif)
                 true
             }
-            true
-        } catch (e: java.lang.Exception) {
-            throw e
+        } catch (e: Exception) {
+            Log.e("sendJustif", "Error sending justification", e)
+            false
         }
     }
 

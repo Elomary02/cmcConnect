@@ -68,7 +68,7 @@ class JustifFragment : Fragment() {
             val idStudent = UserInInfo.id
             justifViewModel.adminForStudent.observe(viewLifecycleOwner) { admin ->
                 val adminId = admin?.id ?: return@observe
-                sendJustif(motifText, selectedFileUri.toString(), idStudent, adminId)
+                sendJustif(motifText, selectedFileUri!!, idStudent, adminId)
             }
             justifViewModel.getStudentAdmin(idStudent)
         }
@@ -92,8 +92,8 @@ class JustifFragment : Fragment() {
         filePickerLauncher.launch(intent)
     }
 
-    private fun sendJustif(motif: String, file: String, student: Int, admin: Int) {
-        justifViewModel.sendJustif(motif, file, student, admin)
+    private fun sendJustif(motif: String, fileUri: Uri, student: Int, admin: Int) {
+        justifViewModel.sendJustif(motif, fileUri, student, admin)
     }
 
     override fun onDestroyView() {
@@ -101,3 +101,4 @@ class JustifFragment : Fragment() {
         _binding = null
     }
 }
+

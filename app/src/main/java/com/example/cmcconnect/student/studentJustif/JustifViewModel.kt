@@ -1,5 +1,6 @@
 package com.example.cmcconnect.student.studentJustif
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,16 +19,23 @@ class JustifViewModel @Inject constructor(private val studentRepository: Student
     private val _adminForStudent = MutableLiveData<AdminDto>()
     val adminForStudent: MutableLiveData<AdminDto> = _adminForStudent
 
-    fun sendJustif(motif: String, file: String, student: Int, admin: Int) {
+    fun sendJustif(motif: String, file: Uri, student: Int, admin: Int) {
         viewModelScope.launch {
-            val justif = JustifToSend (
-                motif = motif,
-                file = file,
-                id_student_fk = student,
-                id_admin_fk = admin
-            )
-            val success = studentRepository.sendJustif(justif)
-            _sendJustifStatus.postValue(success)
+            val fileName = "justif_${System.currentTimeMillis()}"
+            val fileUrl = studentRepository.uploadFileToBucket(file, fileName)
+
+            if (fileUrl != null) {
+                val justif = JustifToSend(
+                    motif = motif,
+                    file = fileUrl,
+                    id_student_fk = student,
+                    id_admin_fk = admin
+                )
+                val success = studentRepository.sendJustif(justif)
+                _sendJustifStatus.postValue(success)
+            } else {
+                _sendJustifStatus.postValue(false)
+            }
         }
     }
 

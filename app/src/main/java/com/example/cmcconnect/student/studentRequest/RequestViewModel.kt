@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cmcconnect.model.AdminDto
-import com.example.cmcconnect.model.JustifToSend
 import com.example.cmcconnect.model.RequestToSend
 import com.example.cmcconnect.model.RequestTypeDto
 import com.example.cmcconnect.model.TeacherDto

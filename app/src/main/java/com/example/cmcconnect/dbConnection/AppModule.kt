@@ -1,5 +1,6 @@
 package com.example.cmcconnect.dbConnection
 
+import android.content.Context
 import com.example.cmcconnect.repository.sharedRepository.AuthenticationRepository
 import com.example.cmcconnect.repository.sharedRepository.AuthenticationRepositoryImp
 import com.example.cmcconnect.repository.sharedRepository.EventRepository
@@ -14,12 +15,20 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.postgrest.Postgrest
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
 object AppModule {
+    @Provides
+    @Singleton
+    fun provideContext(@ApplicationContext context: Context): Context {
+        return context
+    }
     @Provides
     fun provideTestRepo(postgrest: Postgrest): testRepo = testRepoImp(postgrest)
     @Provides
@@ -29,5 +38,5 @@ object AppModule {
     @Provides
     fun provideEventRepository(postgrest: Postgrest): EventRepository = EventRepositoryImp(postgrest)
     @Provides
-    fun provideStudentRepository(postgrest: Postgrest): StudentRepository = StudentRepositoryImp(postgrest)
+    fun provideStudentRepository(postgrest: Postgrest, @ApplicationContext context: Context, supabase: SupabaseClient): StudentRepository = StudentRepositoryImp(context, postgrest, supabase)
 }

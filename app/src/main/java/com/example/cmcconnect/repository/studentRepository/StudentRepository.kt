@@ -1,5 +1,6 @@
 package com.example.cmcconnect.repository.studentRepository
 
+import android.net.Uri
 import com.example.cmcconnect.model.AdminDto
 import com.example.cmcconnect.model.JustifToSend
 import com.example.cmcconnect.model.RequestToSend
@@ -13,5 +14,6 @@ interface StudentRepository {
     suspend fun loadTeachersForStudent(idStudent: Int): List<TeacherDto>
     suspend fun getStudentAdmin(idStudent: Int): AdminDto
     suspend fun sendRequest(request: RequestToSend): Boolean
+    suspend fun uploadFileToBucket(uri: Uri, fileName: String): String?
     suspend fun sendJustif(justif: JustifToSend): Boolean
 }
