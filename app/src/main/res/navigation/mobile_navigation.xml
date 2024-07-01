@@ -50,4 +50,29 @@
         android:name="com.example.cmcconnect.student.studentResource.ResourcesFragment"
         android:label="fragment_resources"
         tools:layout="@layout/fragment_resources" />
+    <fragment
+        android:id="@+id/id_groupeStudentsFragment"
+        android:name="com.example.cmcconnect.formateur.formateurGroupStudents.GroupeStudentsFragment"
+        android:label="formateur_fragment_grope_students"
+        tools:layout="@layout/formateur_fragment_grope_students" />
+    <fragment
+        android:id="@+id/id_groupsFragment"
+        android:name="com.example.cmcconnect.formateur.formateurGroups.GroupsFragment"
+        android:label="formateur_fragment_groups"
+        tools:layout="@layout/formateur_fragment_groups" />
+    <fragment
+        android:id="@+id/id_postResourcesFragment"
+        android:name="com.example.cmcconnect.formateur.formateurPostResources.PostResourcesFragment"
+        android:label="formateur_fragment_post_resources"
+        tools:layout="@layout/formateur_fragment_post_resources" />
+    <fragment
+        android:id="@+id/id_seeRequestsFragment"
+        android:name="com.example.cmcconnect.formateur.formateurSeeRequests.SeeRequestsFragment"
+        android:label="formateur_fragment_see_requests"
+        tools:layout="@layout/formateur_fragment_see_requests" />
+    <fragment
+        android:id="@+id/id_seeResourcesFragment"
+        android:name="com.example.cmcconnect.formateur.formateurSeeResources.SeeResourcesFragment"
+        android:label="formateur_fragment_see_resources"
+        tools:layout="@layout/formateur_fragment_see_resources" />
 </navigation>
