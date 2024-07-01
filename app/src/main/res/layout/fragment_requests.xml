@@ -22,7 +22,7 @@
             android:layout_gravity="center_horizontal">
 
             <Spinner
-                android:id="@+id/spinner_resources"
+                android:id="@+id/spinner_requests"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:spinnerMode="dropdown"
@@ -39,7 +39,7 @@
             android:layout_gravity="center_horizontal">
 
             <Spinner
-                android:id="@+id/spinner_teacher"
+                android:id="@+id/spinner_teachers"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:spinnerMode="dropdown"

@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/justif_motif_et"
             style="@style/TextMedium"
             android:layout_width="match_parent"
             android:layout_height="263dp"
@@ -32,6 +33,7 @@
 
 
         <ImageButton
+            android:id="@+id/select_file"
             android:layout_width="127dp"
             android:layout_height="127dp"
             android:layout_marginTop="40dp"
@@ -46,6 +48,7 @@
             style="@style/TextRegular"
             />
         <Button
+            android:id="@+id/send_justif_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_long_btn"
