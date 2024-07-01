@@ -6,7 +6,6 @@
     android:gravity="center"
     android:background="@drawable/shape_resource_item"
     android:elevation="10dp"
-    android:layout_marginTop="10dp"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:padding="8dp">
@@ -23,7 +22,9 @@
         android:layout_height="wrap_content"
         android:text="@string/ressource_title"
         android:textSize="16sp"
+        android:layout_marginStart="9dp"
         style="@style/TextMedium"
+        android:layout_gravity="start"
         android:layout_marginTop="4dp"/>
 
     <TextView
