@@ -17,6 +17,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.cmcconnect.model.UserInInfo
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navigationView : NavigationView
+    private lateinit var navigationView: NavigationView
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var menuCloseBtn: ImageButton
@@ -38,10 +39,36 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawer)
         navigationView = findViewById(R.id.nav_view)
 
+        when(UserInInfo.id_type_user_fk){
+            1-> {
+                navigationView.inflateMenu(R.menu.nav_menu)
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(
+                        R.id.id_dashboardFragment,
+                        R.id.id_resourcesFragment, R.id.id_requestsFragment, R.id.id_justifFragment,
+                        R.id.id_chatHomeFragment, R.id.id_eventsFragment, R.id.id_profileFragment
+                    ),
+                    drawerLayout
+                )
+
+            }
+            2->{
+                navigationView.inflateMenu(R.menu.teacher_menu)
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(
+                        R.id.id_dashboardFragment,
+                        R.id.id_seeResourcesFragment, R.id.id_postResourcesFragment, R.id.id_requestsFragment,
+                        R.id.id_groupsFragment, R.id.id_chatHomeFragment, R.id.id_eventsFragment, R.id.id_profileFragment
+                    ),
+                    drawerLayout
+                )
+
+
+            }
+        }
+
         navController = findNavController(R.id.fragmentContainerView)
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.id_dashboardFragment,
-            R.id.id_resourcesFragment,R.id.id_requestsFragment,R.id.id_justifFragment,
-            R.id.id_chatHomeFragment,R.id.id_eventsFragment,R.id.id_profileFragment))
+
         setupActionBarWithNavController(navController, drawerLayout)
         navigationView.setupWithNavController(navController)
 
@@ -72,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }

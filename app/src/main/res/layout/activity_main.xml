@@ -54,7 +54,7 @@
 
             app:itemTextAppearance="@style/TextRegular2"
             app:itemTextColor="@color/color_selector"
-            app:menu="@menu/nav_menu"
+
 
             >
 
