@@ -11,9 +11,7 @@ import com.example.cmcconnect.model.RessourceDto
 import com.example.cmcconnect.model.TeacherDto
 
 interface StudentRepository {
-    
 
-    suspend fun getRecentResourcesForStudentGroup(idStudent: Int): List<RessourceDto>?
     suspend fun loadRequests(): List<RequestTypeDto>
     suspend fun loadTeachersForStudent(idStudent: Int): List<TeacherDto>
     suspend fun getStudentAdmin(idStudent: Int): AdminDto

@@ -65,17 +65,17 @@ class StudentRepositoryImp @Inject constructor(
     override suspend fun getRecentModulesByGroupId(idGroup: Int): List<CoursDto> {
         return withContext(Dispatchers.IO) {
             val lisModuleRes = postgrest.from("cours")
-                    .select(columns = Columns.list("id,groupe(id),module(id,name)")) {
-                        filter {
-                            eq("id_groupe_fk", idGroup)
-                        }
-                        limit(4)
-                        order("id", order = Order.DESCENDING)
-                    }.decodeList<CoursDto>()
-                    lisModuleRes
-            }
+                .select(columns = Columns.list("id,groupe(id),module(id,name)")) {
+                    filter {
+                        eq("id_groupe_fk", idGroup)
+                    }
+                    limit(4)
+                    order("id", order = Order.DESCENDING)
+                }.decodeList<CoursDto>()
+            lisModuleRes
+        }
     }
-        
+
     override suspend fun loadRequests(): List<RequestTypeDto> {
         return try {
             withContext(Dispatchers.IO) {
