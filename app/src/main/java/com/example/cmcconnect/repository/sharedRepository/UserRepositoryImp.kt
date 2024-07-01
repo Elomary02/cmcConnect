@@ -33,7 +33,7 @@ class UserRepositoryImp @Inject constructor(
             when (typeId) {
                 1 -> {
                     val studentDetails = postgrest.from("student").select(columns = Columns
-                        .list("id,name,email,phone,image,id_type_user_fk")) {
+                        .list("id,name,email,phone,image,id_groupe_fk,id_type_user_fk")) {
                         filter {
                             eq("email", userEmail)
                         }
