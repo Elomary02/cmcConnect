@@ -87,4 +87,39 @@
         android:name="com.example.cmcconnect.formateur.formateurSeeResources.SeeResourcesFragment"
         android:label="formateur_fragment_see_resources"
         tools:layout="@layout/formateur_fragment_see_resources" />
+    <fragment
+        android:id="@+id/id_adminFormateursFragment"
+        android:name="com.example.cmcconnect.admin.adminFormateurs.AdminFormateursFragment"
+        android:label="admin_fragment_admin_formaturs"
+        tools:layout="@layout/admin_fragment_admin_formaturs" />
+    <fragment
+        android:id="@+id/id_answeredRequestsFragment"
+        android:name="com.example.cmcconnect.admin.adminAnsweredRequests.AnsweredRequestsFragment"
+        android:label="admin_fragment_answered_requests"
+        tools:layout="@layout/admin_fragment_answered_requests" />
+    <fragment
+        android:id="@+id/id_adminDashboardFragment"
+        android:name="com.example.cmcconnect.admin.adminDashboard.AdminDashboardFragment"
+        android:label="admin_fragment_dashboard"
+        tools:layout="@layout/admin_fragment_dashboard" />
+    <fragment
+        android:id="@+id/id_filiereFragment"
+        android:name="com.example.cmcconnect.admin.adminFiliere.FiliereFragment"
+        android:label="admin_fragment_filiere"
+        tools:layout="@layout/admin_fragment_filiere" />
+    <fragment
+        android:id="@+id/formateursAssignedGroupsPopupFragment"
+        android:name="com.example.cmcconnect.admin.adminFormateursAssignedGroups.FormateursAssignedGroupsPopupFragment"
+        android:label="admin_fragment_formateurs_assigned_groups_popup"
+        tools:layout="@layout/admin_fragment_formateurs_assigned_groups_popup" />
+    <fragment
+        android:id="@+id/id_adminJustifsFragment"
+        android:name="com.example.cmcconnect.admin.adminJustifs.AdminJustifsFragment"
+        android:label="admin_fragment_justifs"
+        tools:layout="@layout/admin_fragment_justifs" />
+    <fragment
+        android:id="@+id/id_adminSeeRequestsFragment"
+        android:name="com.example.cmcconnect.admin.adminSeeRequests.AdminSeeRequestsFragment"
+        android:label="admin_fragment_see_requests"
+        tools:layout="@layout/admin_fragment_see_requests" />
 </navigation>

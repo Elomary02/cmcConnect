@@ -3,16 +3,13 @@ package com.example.cmcconnect
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
@@ -66,6 +63,20 @@ class MainActivity : AppCompatActivity() {
 
 
             }
+            3->{
+                navigationView.inflateMenu(R.menu.admin_menu)
+                setNavigationGraph(R.navigation.admin_mobile_navigation)
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(
+                        R.id.id_adminDashboardFragment,R.id.id_filiereFragment,R.id.id_adminSeeRequestsFragment,
+                        R.id.id_answeredRequestsFragment,R.id.id_adminJustifsFragment,
+                        R.id.id_adminFormateursFragment,R.id.id_eventsFragment,R.id.id_profileFragment
+                    ),
+                    drawerLayout
+                )
+
+
+            }
         }
 
         navController = findNavController(R.id.fragmentContainerView)
@@ -108,5 +119,8 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
+    private fun setNavigationGraph(navigationGraphId: Int) {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        navHostFragment.navController.setGraph(navigationGraphId)
+    }
 }
