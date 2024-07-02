@@ -1,6 +1,8 @@
 package com.example.cmcconnect.dbConnection
 
 import android.content.Context
+import com.example.cmcconnect.repository.adminRepository.AdminRepository
+import com.example.cmcconnect.repository.adminRepository.AdminRepositoryImpl
 import com.example.cmcconnect.repository.sharedRepository.AuthenticationRepository
 import com.example.cmcconnect.repository.sharedRepository.AuthenticationRepositoryImp
 import com.example.cmcconnect.repository.sharedRepository.EventRepository
@@ -44,4 +46,6 @@ object AppModule {
 
     @Provides
     fun provideTeacherRepository(postgrest: Postgrest) : TeacherRepository = TeacherRepositoryImpl(postgrest)
+    @Provides
+    fun provideAdminRepository(postgrest: Postgrest):AdminRepository = AdminRepositoryImpl(postgrest)
 }

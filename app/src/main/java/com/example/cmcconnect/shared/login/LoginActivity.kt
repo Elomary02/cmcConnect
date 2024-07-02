@@ -65,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
                                     UserInInfo.image = userInfo.image.toString()
                                     UserInInfo.id_groupe_fk = userInfo.id_groupe_fk
                                     UserInInfo.id_type_user_fk = userInfo.id_type_user_fk!!
+                                    UserInInfo.id_pole_fk = userInfo.id_pole_fk
                                 }
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)

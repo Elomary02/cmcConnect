@@ -10,5 +10,6 @@ data class UserInDto(
     var phone: String?,
     var image: String?,
     var id_groupe_fk: Int? = null,
-    var id_type_user_fk: Int?
+    var id_type_user_fk: Int?,
+    var id_pole_fk : Int? = null
 ) : java.io.Serializable

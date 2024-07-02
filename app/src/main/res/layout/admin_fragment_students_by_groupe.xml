@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".formateur.formateurGroupStudents.GroupeStudentsFragment">
+    tools:context=".admin.adminStudentsByGroup.StudentsByGroupeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,6 +21,7 @@
             android:paddingVertical="13dp">
 
             <ImageButton
+                android:id="@+id/back_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/transparent"
@@ -33,6 +34,7 @@
                 android:src="@drawable/icon_group" />
 
             <TextView
+                android:id="@+id/group_tv"
                 style="@style/TextBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,56 +64,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/students_rv"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="515dp"
             android:layout_below="@+id/search_bar_tv"
             android:layout_marginHorizontal="28dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_edit_text_search_bar"
-            android:padding="20dp"/>
+            android:padding="10dp"/>
 
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/students_rv"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_edit_text_search_bar"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="5dp">
-
-            <TextView
-                style="@style/TextBold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Formateur Parent"
-                android:textColor="@color/main_green_color"
-                android:textSize="19sp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="43dp"
-                    android:layout_height="43dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/profileimg" />
-
-                <TextView
-                    style="@style/TextBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
-                    android:gravity="center_vertical"
-                    android:textSize="22sp"
-                    tools:text="Formateur 1" />
-            </LinearLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/buttons_rv"
@@ -123,16 +82,6 @@
             android:layout_centerHorizontal="true"
             android:orientation="horizontal"
             android:padding="10dp">
-
-            <Button
-                android:layout_width="149dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:background="@drawable/shape_button_reply"
-                android:gravity="center"
-                android:text="Assigner"
-                android:textSize="20sp"
-                app:backgroundTint="@color/main_green_color" />
 
             <Button
                 android:layout_width="149dp"

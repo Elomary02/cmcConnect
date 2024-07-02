@@ -5,16 +5,51 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.cmcconnect.R
+import android.widget.ImageButton
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cmcconnect.adapters.teacherAdapters.StudentsGroupRvAdapter
+import com.example.cmcconnect.databinding.AdminFragmentStudentsByGroupeBinding
+import com.example.cmcconnect.model.GroupeDto
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StudentsByGroupeFragment : Fragment() {
+    private val studentsByGroupViewModel : StudentsByGroupViewModel by viewModels()
+
+    private var _binding: AdminFragmentStudentsByGroupeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.admin_fragment_students_by_groupe, container, false)
+        _binding = AdminFragmentStudentsByGroupeBinding.inflate(inflater, container, false)
+        val view =  binding.root
+        val backIcon : ImageButton = binding.backIcon
+        backIcon.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        val clickedGroup = arguments?.getSerializable("clickedGroup") as GroupeDto
+        binding.groupTv.text = clickedGroup.name
+
+        val studentsRv : RecyclerView = binding.studentsRv
+        studentsRv.layoutManager = LinearLayoutManager(requireContext())
+        val rvAdapter = StudentsGroupRvAdapter()
+        studentsRv.adapter = rvAdapter
+
+        studentsByGroupViewModel.studentsLiveData.observe(viewLifecycleOwner){
+            data-> rvAdapter.submitList(data)
+        }
+        clickedGroup.id?.let { studentsByGroupViewModel.getStudentsByGroupId(it) }
+
+        return view
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
