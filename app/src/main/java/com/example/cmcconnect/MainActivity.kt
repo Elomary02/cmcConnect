@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
             supportActionBar?.setHomeButtonEnabled(false)
             when(destination.id){
-                R.id.id_groupeStudentsFragment , R.id.eventsDetailsFragment -> toolbar.visibility = View.GONE
+                R.id.id_groupeStudentsFragment , R.id.eventsDetailsFragment,R.id.studentsByGroupeFragment -> toolbar.visibility = View.GONE
                 else -> toolbar.visibility = View.VISIBLE
             }
         }

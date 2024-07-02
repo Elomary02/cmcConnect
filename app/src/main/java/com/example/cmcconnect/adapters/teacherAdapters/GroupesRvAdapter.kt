@@ -63,7 +63,7 @@ class GroupesRvAdapter(private val navController: NavController, private val ite
         fun bind(group: GroupeDto) {
             groupName.text = group.name
             viewButton.setOnClickListener {
-                val clickedGroupId = group.id
+
                 val bundle = Bundle().apply {
                     putSerializable("clickedGroup", group)
                 }

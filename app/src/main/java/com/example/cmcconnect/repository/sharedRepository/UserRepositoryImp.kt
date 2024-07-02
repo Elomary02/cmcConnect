@@ -53,7 +53,7 @@ class UserRepositoryImp @Inject constructor(
 
                 3 -> {
                     val adminDetails = postgrest.from("admin").select(columns = Columns
-                        .list("id,name,email,phone,image,id_type_user_fk")) {
+                        .list("id,name,email,phone,image,id_pole_fk,id_type_user_fk")) {
                         filter {
                             eq("email", userEmail)
                         }
