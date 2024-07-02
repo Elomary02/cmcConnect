@@ -42,7 +42,7 @@ class DashboardFragment : Fragment() {
 
         val seeAllEvents: TextView = binding.tvVoirToutEvents
         seeAllEvents.setOnClickListener {
-            findNavController().navigate(R.id.id_eventsFragment)
+            findNavController().navigate(R.id.action_id_dashboardFragment_to_id_eventsFragment)
         }
 
         val eventsRecyclerView: RecyclerView = binding.recyclerViewEvents

@@ -2,6 +2,7 @@ package com.example.cmcconnect.repository.teacherRepository
 
 import com.example.cmcconnect.model.CoursDto
 import com.example.cmcconnect.model.RessourceDto
+import com.example.cmcconnect.model.StudentDto
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
 import kotlinx.coroutines.Dispatchers
@@ -57,5 +58,16 @@ class TeacherRepositoryImpl @Inject constructor(private val postgrest: Postgrest
             listRes
         }
 
+    }
+
+    override suspend fun getStudentsByGroupId(idGroup: Int): List<StudentDto> {
+        return with(Dispatchers.IO){
+            val lisStud = postgrest.from("student").select {
+                filter {
+                    eq("id_groupe_fk",idGroup)
+                }
+            }.decodeList<StudentDto>()
+            lisStud
+        }
     }
 }

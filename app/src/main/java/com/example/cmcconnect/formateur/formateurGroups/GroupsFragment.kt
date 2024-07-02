@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cmcconnect.adapters.teacherAdapters.GroupesRvAdapter
@@ -33,7 +34,7 @@ class GroupsFragment : Fragment() {
         var groupsRv : RecyclerView = binding.GroupsRv
         groupsViewModel.groupsLiveData.observe(viewLifecycleOwner) { groups ->
             val items = prepareItems(groups)
-            val adapter = GroupesRvAdapter(items)
+            val adapter = GroupesRvAdapter(findNavController(),items)
             groupsRv.layoutManager = LinearLayoutManager(requireContext())
             groupsRv.adapter = adapter
 

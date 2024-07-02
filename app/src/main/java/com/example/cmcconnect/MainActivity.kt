@@ -1,6 +1,7 @@
 package com.example.cmcconnect
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -84,10 +85,14 @@ class MainActivity : AppCompatActivity() {
         customBurgerIcon.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
-
+        val toolbar : Toolbar = findViewById(R.id.myToolBar)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
             supportActionBar?.setHomeButtonEnabled(false)
+            when(destination.id){
+                R.id.id_groupeStudentsFragment , R.id.eventsDetailsFragment -> toolbar.visibility = View.GONE
+                else -> toolbar.visibility = View.VISIBLE
+            }
         }
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
