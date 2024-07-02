@@ -14,7 +14,7 @@ class TeacherRepositoryImpl @Inject constructor(private val postgrest: Postgrest
         return withContext(Dispatchers.IO) {
             val lisModuleRes =
                 postgrest.from("cours")
-                    .select(columns = Columns.list("groupe(id,name,id_filiere_fk)")) {
+                    .select(columns = Columns.list("groupe(id,name,filiere(id,name))")) {
                         filter {
                             eq("id_teacher_fk", idTeacher)
 
