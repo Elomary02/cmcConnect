@@ -11,12 +11,14 @@ import com.example.cmcconnect.model.RequestWithStudent
 import com.example.cmcconnect.model.ResourceToPost
 import com.example.cmcconnect.model.RessourceDto
 import com.example.cmcconnect.model.StudentDto
+import com.example.cmcconnect.model.StudentRequestReplyToPost
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Columns.Companion.ALL
 import io.github.jan.supabase.postgrest.query.Columns.Companion.list
 import io.github.jan.supabase.postgrest.query.Columns.Companion.raw
+import io.github.jan.supabase.postgrest.query.Order
 import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -136,10 +138,12 @@ class TeacherRepositoryImpl @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = postgrest.from("request")
-                    .select(Columns.raw("id, motif, id_student_fk, id_teacher_fk, id_admin_fk, student(id, name, email, phone, image, id_groupe_fk, id_type_user_fk)")) {
+                    .select(Columns.raw("id, motif, id_student_fk, id_teacher_fk, id_admin_fk, student(id, name, email, phone, image, id_groupe_fk, id_type_user_fk, groupe(id, name, id_year_fk, id_filiere_fk)), answered")) {
                         filter {
                             eq("id_teacher_fk", idTeacher)
+                            eq("answered", false)
                         }
+                        order("id", order = Order.DESCENDING)
                     }
 
                 Log.d("SupabaseResponse", response.data)
@@ -153,5 +157,21 @@ class TeacherRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun teacherReplyToStudent(reply: StudentRequestReplyToPost): Boolean {
+        return try {
+            withContext(Dispatchers.IO) {
+                postgrest.from("teacher_response").insert(reply)
+                postgrest.from("request").update(mapOf("answered" to true)) {
+                    filter {
+                        eq("id", reply.id_request_fk)
+                    }
+                }
+                true
+            }
+        } catch (e: Exception) {
+            Log.e("post ressource", "Error posting ressource", e)
+            false
+        }
+    }
 
 }

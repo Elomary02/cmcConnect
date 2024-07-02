@@ -10,5 +10,6 @@ data class StudentDto (
     val phone: String,
     val image: String,
     val id_groupe_fk: Int,
-    val id_type_user_fk: Int
+    val id_type_user_fk: Int,
+    val groupe: GroupeDto? = null
 ): java.io.Serializable

@@ -9,5 +9,5 @@ data class RequestWithStudent(
     val id_student_fk: Int,
     val id_teacher_fk: Int?,
     val id_admin_fk: Int?,
-    val student: StudentDto
+    val student: StudentDto,
 ): java.io.Serializable

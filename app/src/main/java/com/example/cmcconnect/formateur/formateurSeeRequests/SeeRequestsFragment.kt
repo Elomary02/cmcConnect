@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cmcconnect.adapters.teacherAdapters.SeeRequestsAdapter
@@ -15,7 +15,7 @@ import com.example.cmcconnect.model.UserInInfo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SeeRequestsFragment : Fragment() {
+class SeeRequestsFragment : Fragment(), OnStudentRequestReplyListener {
     private val seeRequestsViewModel: SeeRequestsViewModel by viewModels()
     private var _binding: FormateurFragmentSeeRequestsBinding? = null
     private val binding get() = _binding!!
@@ -29,7 +29,7 @@ class SeeRequestsFragment : Fragment() {
 
         val requestsRecyclerView: RecyclerView = binding.rvRequests
         requestsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val requestsAdapter = SeeRequestsAdapter(findNavController())
+        val requestsAdapter = SeeRequestsAdapter(this)
         requestsRecyclerView.adapter = requestsAdapter
 
         seeRequestsViewModel.requestsForTeacherLiveData.observe(viewLifecycleOwner) { requestWithStudents ->
@@ -38,8 +38,15 @@ class SeeRequestsFragment : Fragment() {
             }
         }
 
-        // Load data
         seeRequestsViewModel.loadRequestsForTeacher(UserInInfo.id)
+
+        seeRequestsViewModel.replyToRequestLiveData.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "Response Sent successfully", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(requireContext(), "Failed to send response", Toast.LENGTH_LONG).show()
+            }
+        }
 
         return view
     }
@@ -47,6 +54,10 @@ class SeeRequestsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onStudentRequestReply(response: String, teacher: Int, student: Int, request: Int) {
+        seeRequestsViewModel.teacherReplyToStudent(response, teacher, student, request)
     }
 }
 

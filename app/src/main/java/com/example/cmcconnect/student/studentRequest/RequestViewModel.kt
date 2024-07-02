@@ -54,7 +54,8 @@ class RequestViewModel @Inject constructor(private val studentRepository: Studen
                 id_student_fk = student,
                 id_type_request_fk = requestType,
                 id_teacher_fk = teacher,
-                id_admin_fk = admin
+                id_admin_fk = admin,
+                answered = false
             )
             val success = studentRepository.sendRequest(request)
             _sendRequestStatus.postValue(success)

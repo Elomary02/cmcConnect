@@ -10,12 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cmcconnect.R
+import com.example.cmcconnect.formateur.formateurSeeRequests.OnStudentRequestReplyListener
 import com.example.cmcconnect.model.RequestWithStudent
+import com.example.cmcconnect.model.UserInInfo
 
-class SeeRequestsAdapter(private val navController: NavController) : RecyclerView.Adapter<SeeRequestsAdapter.SeeRequestsViewHolder>() {
+class SeeRequestsAdapter(private val studentRequestReplyListener: OnStudentRequestReplyListener) : RecyclerView.Adapter<SeeRequestsAdapter.SeeRequestsViewHolder>() {
     private var requests: List<RequestWithStudent> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeeRequestsViewHolder {
@@ -34,7 +35,7 @@ class SeeRequestsAdapter(private val navController: NavController) : RecyclerVie
 
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newRequests: List<RequestWithStudent>) {
-        requests = newRequests
+        this.requests = newRequests
         notifyDataSetChanged()
     }
 
@@ -50,13 +51,12 @@ class SeeRequestsAdapter(private val navController: NavController) : RecyclerVie
             name.text = student.name
             motif.text = request.motif
 
-
             btnReply.setOnClickListener {
-                showRequestPopUp()
+                showRequestPopUp(student.name, student.groupe?.name, request.motif, student.id, request.id)
             }
         }
 
-        fun showRequestPopUp() {
+        private fun showRequestPopUp(studentName: String, groupName: String?, requestMotif: String, studentId: Int, requestId: Int) {
             val inflater = LayoutInflater.from(itemView.context)
             val dialogView = inflater.inflate(R.layout.formateur_request_popup, null)
 
@@ -75,16 +75,25 @@ class SeeRequestsAdapter(private val navController: NavController) : RecyclerVie
             alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
             val exitBtn = dialogView.findViewById<ImageButton>(R.id.exit_button)
-            val studentName = dialogView.findViewById<TextView>(R.id.student_name)
-            val studentGroup = dialogView.findViewById<TextView>(R.id.group_name)
-            val motif = dialogView.findViewById<TextView>(R.id.reason)
+            val studentNameTextView = dialogView.findViewById<TextView>(R.id.student_name)
+            val studentGroupTextView = dialogView.findViewById<TextView>(R.id.group_name)
+            val motifTextView = dialogView.findViewById<TextView>(R.id.reason)
             val reply = dialogView.findViewById<EditText>(R.id.note_input)
             val btnSend = dialogView.findViewById<Button>(R.id.post_reply)
+
+            studentNameTextView.text = studentName
+            studentGroupTextView.text = groupName ?: "Unknown"
+            motifTextView.text = requestMotif
 
             exitBtn.setOnClickListener {
                 alertDialog.dismiss()
             }
+
             btnSend.setOnClickListener {
+                val response = reply.text.toString()
+                if (response.isNotEmpty()) {
+                    studentRequestReplyListener.onStudentRequestReply(response, UserInInfo.id, studentId, requestId)
+                }
                 alertDialog.dismiss()
             }
 
