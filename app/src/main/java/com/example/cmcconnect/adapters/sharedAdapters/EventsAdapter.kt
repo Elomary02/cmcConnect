@@ -51,7 +51,7 @@ class EventsAdapter(private val navController: NavController): RecyclerView.Adap
         fun bind(eventDto: EventDto) {
             Glide.with(itemView.context)
                 .load(eventDto.poster)
-                .placeholder(R.drawable.img_event_poster_three)
+                .placeholder(R.drawable.img_placeholder_for_event)
                 .into(event_poster)
             val eventDateFormat = "${eventDto.date.dayOfMonth} \n ${eventDto.date.month}"
             event_date.text = eventDateFormat

@@ -39,6 +39,7 @@
             android:layout_marginTop="40dp"
             android:src="@drawable/filepickericon"/>
         <TextView
+            android:id="@+id/selected_justif_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="sélectionner un fichier"

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -30,6 +32,7 @@ class JustifFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             selectedFileUri = result.data?.data
             if (selectedFileUri != null) {
+                binding.selectedJustifTitle.text = selectedFileUri?.let { getFileName(it) }
                 Log.d("JustifFragment", "File selected: $selectedFileUri")
                 Toast.makeText(requireContext(), "File selected: $selectedFileUri", Toast.LENGTH_SHORT).show()
             } else {
@@ -94,6 +97,18 @@ class JustifFragment : Fragment() {
 
     private fun sendJustif(motif: String, fileUri: Uri, student: Int, admin: Int) {
         justifViewModel.sendJustif(motif, fileUri, student, admin)
+    }
+
+    private fun getFileName(uri: Uri): String {
+        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
+        return if (cursor != null && cursor.moveToFirst()) {
+            val displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            val displayName = cursor.getString(displayNameIndex)
+            cursor.close()
+            displayName
+        } else {
+            "Unknown"
+        }
     }
 
     override fun onDestroyView() {

@@ -26,14 +26,22 @@ class PostResourcesViewModel @Inject constructor(private val teacherRepository: 
 
     fun loadGroupsOfTeacher(idTeacher: Int) {
         viewModelScope.launch {
-            val groups = teacherRepository.loadGroupsOfTeacher(idTeacher)
+            val groups = mutableListOf<GroupeDto>()
+            val result = teacherRepository.loadGroupsOfTeacher(idTeacher)
+            result.forEach {
+                res -> res.groupe?.let { groups.add(it) }
+            }
             _groupsOfTeacherLiveData.postValue(groups)
         }
     }
 
-    fun loadModulesOfGroup(idGroup: Int) {
+    fun loadModulesOfGroup(idTeacher: Int, idGroup: Int) {
         viewModelScope.launch {
-            val modules = teacherRepository.loadModulesOfGroup(idGroup)
+            val modules = mutableListOf<ModuleDto>()
+            val result = teacherRepository.loadModulesOfGroup(idTeacher, idGroup)
+            result.forEach {
+                res -> res.module?.let { modules.add(it) }
+            }
             _modulesOfGroupLiveData.postValue(modules)
         }
     }

@@ -49,7 +49,7 @@ class DashboardEventsAdapter: RecyclerView.Adapter<DashboardEventsAdapter.Dashbo
 
             Glide.with(itemView.context)
                 .load(eventDto.poster)
-                .placeholder(R.drawable.img_event_poster)
+                .placeholder(R.drawable.img_placeholder_for_event)
                 .into(event_poster)
         }
     }

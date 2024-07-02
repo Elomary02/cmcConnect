@@ -36,6 +36,7 @@ class PostResourcesFragment : Fragment() {
             selectedFileType = result.data?.data?.let { getFileType(it) }
             resourceTitle = selectedFileUri?.let { getFileName(it) }
             if (selectedFileUri != null) {
+                binding.selectedFileTitle.text = resourceTitle
                 Log.d("PostResourcesFragment", "File selected: $selectedFileUri")
                 Toast.makeText(requireContext(), "File selected: $selectedFileUri", Toast.LENGTH_SHORT).show()
             } else {
@@ -85,6 +86,8 @@ class PostResourcesFragment : Fragment() {
             }
         }
 
+        val idTeacher = UserInInfo.id
+
         postResourceViewModel.groupsOfTeacherLiveData.observe(viewLifecycleOwner) { groups ->
             val groupsNames = groups.map { it.name }
             val groupsSpinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, groupsNames)
@@ -98,7 +101,7 @@ class PostResourcesFragment : Fragment() {
                         val selectedGroup = groups.find { it.name == selectedGroupName }
                         selectedGroup?.id?.let { groupId ->
                             Log.d("Groups Spinner", "Selected group ID: $groupId")
-                            postResourceViewModel.loadModulesOfGroup(groupId)
+                            postResourceViewModel.loadModulesOfGroup(idTeacher, groupId)
                         }
                     }
                 }
@@ -121,7 +124,6 @@ class PostResourcesFragment : Fragment() {
             }
         }
 
-        val idTeacher = UserInInfo.id
         postResourceViewModel.loadGroupsOfTeacher(idTeacher)
 
         return view

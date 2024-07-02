@@ -22,59 +22,29 @@ class TeacherRepositoryImpl @Inject constructor(
     private val postgrest: Postgrest,
     private val supabase: SupabaseClient
 ): TeacherRepository {
-    override suspend fun loadGroupsOfTeacher(idTeacher: Int): List<GroupeDto> {
-        return try {
-            withContext(Dispatchers.IO) {
-                val groupResult = postgrest.from("cours").select(Columns.raw("id_groupe_fk")) {
-                    filter {
-                        eq("id_teacher_fk", idTeacher)
-                    }
-                }.decodeList<Map<String, Int>>()
-                val groupIds = groupResult.mapNotNull { it["id_groupe_fk"] }
-                Log.d("Groupes", groupIds.toString())
+    override suspend fun loadGroupsOfTeacher(idTeacher: Int): List<CoursDto> {
+        return withContext(Dispatchers.IO) {
+            val groups = postgrest.from("cours")
+                    .select(columns = Columns.list("groupe(id,name,id_filiere_fk)")) {
+                        filter {
+                            eq("id_teacher_fk", idTeacher)
 
-                if (groupIds.isNotEmpty()) {
-                    val idsFilter = groupIds.joinToString(prefix = "(", postfix = ")") { it.toString() }
-                    val groups = postgrest.from("groupe").select(Columns.ALL) {
-                        raw("id IN $idsFilter")
-                    }.decodeList<GroupeDto>()
-                    groups
-                } else {
-                    emptyList()
-                }
-            }
-        } catch (e: Exception) {
-            Log.e("groups for teacher", "Error loading groups", e)
-            emptyList()
+                        }
+                    }.decodeList<CoursDto>()
+            val uniqueGroups = groups.distinctBy { it.groupe?.id }
+            uniqueGroups
         }
     }
 
-    override suspend fun loadModulesOfGroup(idGroup: Int): List<ModuleDto> {
-        return try {
-            withContext(Dispatchers.IO) {
-                val moduleResult = postgrest.from("cours").select(Columns.raw("id_module_fk")) {
-                    filter {
-                        eq("id_groupe_fk", idGroup)
-                    }
-                }.decodeList<Map<String, Int>>()
-
-                val moduleIds = moduleResult.mapNotNull { it["id_module_fk"] }.distinct()
-                Log.d("modules", "Module IDs for group $idGroup: $moduleIds")
-
-                if (moduleIds.isNotEmpty()) {
-                    val idsFilter = moduleIds.joinToString(prefix = "(", postfix = ")") { it.toString() }
-                    val modules = postgrest.from("module").select(Columns.ALL) {
-                        raw("id IN $idsFilter")
-                    }.decodeList<ModuleDto>()
-                    Log.d("modules", "Loaded modules for group $idGroup: $modules")
-                    modules
-                } else {
-                    emptyList()
+    override suspend fun loadModulesOfGroup(idTeacher: Int, idGroup: Int): List<CoursDto> {
+        return withContext(Dispatchers.IO) {
+            val modules = postgrest.from("cours").select(columns = Columns.list("module(id,name)")) {
+                filter {
+                    eq("id_teacher_fk", idTeacher)
+                    eq("id_groupe_fk", idGroup)
                 }
-            }
-        } catch (e: Exception) {
-            Log.e("Modules For Group", "Error loading modules", e)
-            emptyList()
+            }.decodeList<CoursDto>()
+            modules
         }
     }
 
