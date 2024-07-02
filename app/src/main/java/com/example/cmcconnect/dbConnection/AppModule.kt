@@ -9,6 +9,8 @@ import com.example.cmcconnect.repository.sharedRepository.UserRepository
 import com.example.cmcconnect.repository.sharedRepository.UserRepositoryImp
 import com.example.cmcconnect.repository.studentRepository.StudentRepository
 import com.example.cmcconnect.repository.studentRepository.StudentRepositoryImp
+import com.example.cmcconnect.repository.teacherRepository.TeacherRepository
+import com.example.cmcconnect.repository.teacherRepository.TeacherRepositoryImpl
 import com.example.cmcconnect.repository.testRepo
 import com.example.cmcconnect.repository.testRepoImp
 import dagger.Module
@@ -39,4 +41,6 @@ object AppModule {
     fun provideEventRepository(postgrest: Postgrest): EventRepository = EventRepositoryImp(postgrest)
     @Provides
     fun provideStudentRepository(postgrest: Postgrest, @ApplicationContext context: Context, supabase: SupabaseClient): StudentRepository = StudentRepositoryImp(context, postgrest, supabase)
+    @Provides
+    fun providesTeacherRepository(postgrest: Postgrest, @ApplicationContext context: Context, supabase: SupabaseClient): TeacherRepository = TeacherRepositoryImpl(context, postgrest, supabase)
 }

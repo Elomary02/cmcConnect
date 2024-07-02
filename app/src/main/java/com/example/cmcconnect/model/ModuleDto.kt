@@ -6,4 +6,8 @@ import kotlinx.serialization.Serializable
 data class ModuleDto (
     val id: Int,
     val name: String
-): java.io.Serializable
+): java.io.Serializable {
+    override fun toString(): String {
+        return name
+    }
+}

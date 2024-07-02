@@ -48,6 +48,7 @@
         </RelativeLayout>
 
         <ImageButton
+            android:id="@+id/select_file"
             android:layout_width="127dp"
             android:layout_height="127dp"
             android:layout_gravity="center"
