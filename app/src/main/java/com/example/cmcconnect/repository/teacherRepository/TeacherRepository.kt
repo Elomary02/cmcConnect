@@ -1,4 +1,11 @@
-package com.example.cmcconnect.repository.teacherRepository;
+package com.example.cmcconnect.repository.teacherRepository
 
-public interface TeacherRepository {
+import com.example.cmcconnect.model.CoursDto
+import com.example.cmcconnect.model.RessourceDto
+
+interface TeacherRepository {
+    suspend fun getCourByTeacherId(idTeacher : Int) : List<CoursDto>
+    suspend fun getModuleByTeacherAndGroupId(idTeacher : Int,idGroup:Int): List<CoursDto>
+
+    suspend fun getResourceTeacherAndModuleId(idTeacher : Int,idModule:Int) : List<RessourceDto>
 }

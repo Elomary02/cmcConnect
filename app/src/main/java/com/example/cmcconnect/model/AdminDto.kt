@@ -10,6 +10,5 @@ data class AdminDto (
     val phone: String,
     val image: String,
     val id_pole_fk: Int,
-    val signInId: String,
     val id_type_user_fk: Int
 ): java.io.Serializable
