@@ -51,7 +51,7 @@ class EventsDetailsFragment : Fragment() {
         }
 
         iconBack.setOnClickListener {
-            findNavController().navigate(R.id.id_eventsFragment)
+            findNavController().navigateUp()
         }
 
         return view

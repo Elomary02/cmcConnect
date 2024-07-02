@@ -25,7 +25,7 @@
         android:title="Demandes" />
     <item
         android:id="@+id/id_groupsFragment"
-        android:icon="@drawable/menu_justifications"
+        android:icon="@drawable/menu_group"
         android:checkable="true"
         android:title="Groupes" />
     <item

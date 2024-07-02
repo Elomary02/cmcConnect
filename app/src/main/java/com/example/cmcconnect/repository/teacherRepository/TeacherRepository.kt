@@ -20,4 +20,6 @@ interface TeacherRepository {
     suspend fun getResourceTeacherAndModuleId(idTeacher : Int,idModule:Int) : List<RessourceDto>
     suspend fun loadStudentRequestsForTeacher(idTeacher: Int): List<RequestWithStudent>
     suspend fun teacherReplyToStudent(reply: StudentRequestReplyToPost): Boolean
+
+    suspend fun getStudentsByGroupId(idGroup: Int): List<StudentDto>
 }

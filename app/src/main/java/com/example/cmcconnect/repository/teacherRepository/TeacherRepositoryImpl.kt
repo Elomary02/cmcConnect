@@ -89,7 +89,7 @@ class TeacherRepositoryImpl @Inject constructor(
         return withContext(Dispatchers.IO) {
             val lisModuleRes =
                 postgrest.from("cours")
-                    .select(columns = Columns.list("groupe(id,name,id_filiere_fk)")) {
+                    .select(columns = Columns.list("groupe(id,name,filiere(id,name))")) {
                         filter {
                             eq("id_teacher_fk", idTeacher)
 
@@ -132,6 +132,17 @@ class TeacherRepositoryImpl @Inject constructor(
             listRes
         }
 
+    }
+
+    override suspend fun getStudentsByGroupId(idGroup: Int): List<StudentDto> {
+        return with(Dispatchers.IO){
+            val lisStud = postgrest.from("student").select {
+                filter {
+                    eq("id_groupe_fk",idGroup)
+                }
+            }.decodeList<StudentDto>()
+            lisStud
+        }
     }
 
     override suspend fun loadStudentRequestsForTeacher(idTeacher: Int): List<RequestWithStudent> {

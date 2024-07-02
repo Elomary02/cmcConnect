@@ -18,7 +18,7 @@
             android:layout_marginTop="23dp"
             android:layout_marginHorizontal="23dp"
             android:background="@drawable/shape_edit_text_search_bar"
-            android:hint="Rechercher un message.."
+            android:hint="Rechercher un groupe.."
             android:padding="6dp"
             android:textColor="@color/grey"
             android:textSize="18sp"
@@ -26,6 +26,7 @@
             android:drawablePadding="16dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Groups_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
