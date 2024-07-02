@@ -3,9 +3,11 @@ package com.example.cmcconnect.repository.teacherRepository
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import com.example.cmcconnect.model.CoursDto
 import com.example.cmcconnect.model.GroupeDto
 import com.example.cmcconnect.model.ModuleDto
 import com.example.cmcconnect.model.ResourceToPost
+import com.example.cmcconnect.model.RessourceDto
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
@@ -106,5 +108,52 @@ class TeacherRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getCourByTeacherId(idTeacher: Int): List<CoursDto> {
+        return withContext(Dispatchers.IO) {
+            val lisModuleRes =
+                postgrest.from("cours")
+                    .select(columns = Columns.list("groupe(id,name,id_filiere_fk)")) {
+                        filter {
+                            eq("id_teacher_fk", idTeacher)
 
+                        }
+                    }.decodeList<CoursDto>()
+            val uniqueGroups = lisModuleRes.distinctBy { it.groupe?.id }
+            uniqueGroups
+        }
+    }
+
+    override suspend fun getModuleByTeacherAndGroupId(
+        idTeacher: Int,
+        idGroup: Int
+    ): List<CoursDto> {
+        return withContext(Dispatchers.IO) {
+            val lisModuleRes =
+                postgrest.from("cours")
+                    .select(columns = Columns.list("module(id,name)")) {
+                        filter {
+                            eq("id_teacher_fk", idTeacher)
+                            eq("id_groupe_fk", idGroup)
+
+                        }
+                    }.decodeList<CoursDto>()
+            lisModuleRes
+        }
+    }
+
+    override suspend fun getResourceTeacherAndModuleId(
+        idTeacher: Int,
+        idModule: Int
+    ): List<RessourceDto> {
+        return withContext(Dispatchers.IO) {
+            val listRes = postgrest.from("ressource").select {
+                filter {
+                    eq("id_teacher_fk",idTeacher)
+                    eq("id_module_fk", idModule)
+                }
+            }.decodeList<RessourceDto>()
+            listRes
+        }
+
+    }
 }
