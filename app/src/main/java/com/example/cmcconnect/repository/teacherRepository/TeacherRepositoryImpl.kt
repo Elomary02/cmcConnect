@@ -6,11 +6,16 @@ import android.util.Log
 import com.example.cmcconnect.model.CoursDto
 import com.example.cmcconnect.model.GroupeDto
 import com.example.cmcconnect.model.ModuleDto
+import com.example.cmcconnect.model.RequestDto
+import com.example.cmcconnect.model.RequestWithStudent
 import com.example.cmcconnect.model.ResourceToPost
 import com.example.cmcconnect.model.RessourceDto
+import com.example.cmcconnect.model.StudentDto
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.postgrest.query.Columns.Companion.ALL
+import io.github.jan.supabase.postgrest.query.Columns.Companion.list
 import io.github.jan.supabase.postgrest.query.Columns.Companion.raw
 import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.Dispatchers
@@ -126,4 +131,27 @@ class TeacherRepositoryImpl @Inject constructor(
         }
 
     }
+
+    override suspend fun loadStudentRequestsForTeacher(idTeacher: Int): List<RequestWithStudent> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = postgrest.from("request")
+                    .select(Columns.raw("id, motif, id_student_fk, id_teacher_fk, id_admin_fk, student(id, name, email, phone, image, id_groupe_fk, id_type_user_fk)")) {
+                        filter {
+                            eq("id_teacher_fk", idTeacher)
+                        }
+                    }
+
+                Log.d("SupabaseResponse", response.data)
+
+                val requests = response.decodeList<RequestWithStudent>()
+                requests
+            } catch (e: Exception) {
+                Log.e("RepositoryError", "Error loading student requests", e)
+                emptyList()
+            }
+        }
+    }
+
+
 }
