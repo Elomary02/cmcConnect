@@ -84,6 +84,7 @@
             android:padding="10dp">
 
             <Button
+                android:id="@+id/add_btn"
                 android:layout_width="149dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"

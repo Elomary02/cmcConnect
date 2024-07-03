@@ -14,6 +14,7 @@ import com.example.cmcconnect.model.RequestDto
 import com.example.cmcconnect.model.StudentDto
 import com.example.cmcconnect.model.StudentRequestForAdminReplyToPost
 import com.example.cmcconnect.model.StudentRequestReplyToPost
+import com.example.cmcconnect.model.StudentToSend
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
@@ -128,6 +129,18 @@ class AdminRepositoryImpl @Inject constructor(private val postgrest: Postgrest) 
         return try {
             withContext(Dispatchers.IO){
                 postgrest.from("groupe").insert(group)
+                true
+            }
+        }catch (e:Exception){
+            Log.e("add group", "Error adding group", e)
+            false
+        }
+    }
+
+    override suspend fun addStudent(student: StudentToSend): Boolean {
+        return try {
+            withContext(Dispatchers.IO){
+                postgrest.from("student").insert(student)
                 true
             }
         }catch (e:Exception){

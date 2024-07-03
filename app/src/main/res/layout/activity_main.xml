@@ -111,6 +111,7 @@
                 </RelativeLayout>
 
                 <Button
+                    android:id="@+id/logOutBtn"
                     style="@style/TextSemiBold"
                     android:layout_width="203dp"
                     android:layout_height="38dp"

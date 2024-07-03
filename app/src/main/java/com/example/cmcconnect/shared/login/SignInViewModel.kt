@@ -44,4 +44,14 @@ class SignInViewModel @Inject constructor(private val authenticationRepository: 
             _currentUserEmail.postValue(fetchedResult)
         }
     }
+    fun logout() {
+        viewModelScope.launch {
+            val result = authenticationRepository.logout()
+            if (result) {
+                _signInState.value = SignInState.Success(false)  // Indicates logged out successfully
+            } else {
+                _signInState.value = SignInState.Error("Failed to log out")
+            }
+        }
+    }
 }

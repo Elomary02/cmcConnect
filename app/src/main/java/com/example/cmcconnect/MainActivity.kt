@@ -1,8 +1,12 @@
 package com.example.cmcconnect
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -16,6 +20,9 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cmcconnect.model.UserInInfo
+import com.example.cmcconnect.repository.sharedRepository.AuthenticationRepository
+import com.example.cmcconnect.shared.login.LoginActivity
+import com.example.cmcconnect.shared.login.SignInViewModel
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +34,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var menuCloseBtn: ImageButton
+
+    private val signInViewModel : SignInViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,8 +44,15 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 
+
+
         drawerLayout = findViewById(R.id.drawer)
         navigationView = findViewById(R.id.nav_view)
+
+        val navHeader = navigationView.getHeaderView(0)
+        val headerTextView : TextView = navHeader.findViewById(R.id.user_name_tv)
+
+        headerTextView.text = UserInInfo.name
 
         when(UserInInfo.id_type_user_fk){
             1-> {
@@ -111,6 +128,16 @@ class MainActivity : AppCompatActivity() {
             menuItem.onNavDestinationSelected(navController)
             drawerLayout.closeDrawer(GravityCompat.START)
             true
+        }
+
+        val logOutBtn :Button = findViewById(R.id.logOutBtn)
+        logOutBtn.setOnClickListener {
+            signInViewModel.logout()
+            val intent = Intent(this,LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+
         }
 
 

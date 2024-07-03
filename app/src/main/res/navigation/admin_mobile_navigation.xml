@@ -70,6 +70,9 @@
         <argument
             android:name="group"
             app:argType="com.example.cmcconnect.model.GroupeDto" />
+        <action
+            android:id="@+id/action_studentsByGroupeFragment_to_adminAddStudent"
+            app:destination="@id/adminAddStudent" />
     </fragment>
     <fragment
         android:id="@+id/adminAddGroupFragment"
@@ -79,6 +82,15 @@
         <argument
             android:name="selectedFiliere"
             app:argType="com.example.cmcconnect.model.FiliereDto" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminAddStudent"
+        android:name="com.example.cmcconnect.admin.adminAddGroup.AdminAddStudent"
+        android:label="admin_fragment_admin_add_student"
+        tools:layout="@layout/admin_fragment_admin_add_student" >
+        <argument
+            android:name="clickedGroup"
+            app:argType="com.example.cmcconnect.model.GroupeDto" />
     </fragment>
 
 </navigation>
