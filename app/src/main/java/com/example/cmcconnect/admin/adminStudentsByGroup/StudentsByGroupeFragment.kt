@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cmcconnect.R
 import com.example.cmcconnect.adapters.teacherAdapters.StudentsGroupRvAdapter
 import com.example.cmcconnect.databinding.AdminFragmentStudentsByGroupeBinding
 import com.example.cmcconnect.model.GroupeDto
@@ -44,6 +45,13 @@ class StudentsByGroupeFragment : Fragment() {
             data-> rvAdapter.submitList(data)
         }
         clickedGroup.id?.let { studentsByGroupViewModel.getStudentsByGroupId(it) }
+
+        binding.addBtn.setOnClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("clickedGroup", clickedGroup)
+            }
+            findNavController().navigate(R.id.action_studentsByGroupeFragment_to_adminAddStudent,bundle)
+        }
 
         return view
     }

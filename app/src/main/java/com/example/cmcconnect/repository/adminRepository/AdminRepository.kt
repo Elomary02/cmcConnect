@@ -9,6 +9,7 @@ import com.example.cmcconnect.model.PoleTeacherDto
 import com.example.cmcconnect.model.RequestDto
 import com.example.cmcconnect.model.StudentDto
 import com.example.cmcconnect.model.StudentRequestForAdminReplyToPost
+import com.example.cmcconnect.model.StudentToSend
 
 interface AdminRepository {
     suspend fun getFilieresByPoleId(idPole: Int): List<FiliereDto>
@@ -19,5 +20,6 @@ interface AdminRepository {
     suspend fun adminReplyToStudent(reply: StudentRequestForAdminReplyToPost): Boolean
     suspend fun getFormateursByPoleId(idPole: Int): List<PoleTeacherDto>
     suspend fun addGroup(group: GroupToPost): Boolean
+    suspend fun addStudent(student : StudentToSend) : Boolean
     suspend fun getAnsweredRequests(idAdmin: Int): List<RequestDto>
 }
