@@ -1,5 +1,6 @@
 package com.example.cmcconnect.repository.sharedRepository
 
+import android.util.Log
 import com.example.cmcconnect.repository.sharedRepository.AuthenticationRepository
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
@@ -20,5 +21,15 @@ class AuthenticationRepositoryImp @Inject constructor(private val auth: Auth): A
 
     override suspend fun getCurrentUserEmail(): String {
         return auth.retrieveUserForCurrentSession(updateSession = true).email.toString()
+    }
+
+    override suspend fun logout(): Boolean {
+        return try {
+            auth.signOut()
+            true
+        } catch (e: Exception) {
+            Log.e("LogoutError", "Failed to log out", e)
+            false
+        }
     }
 }
