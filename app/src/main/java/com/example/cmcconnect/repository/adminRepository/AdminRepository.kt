@@ -23,5 +23,5 @@ interface AdminRepository {
     suspend fun addGroup(group: GroupToPost): Boolean
     suspend fun getAnsweredRequests(idAdmin: Int): List<AnsweredRequestsWithRequestDetails>
     suspend fun addStudent(student : StudentToSend) : Boolean
-    suspend fun getAnsweredRequests(idAdmin: Int): List<RequestDto>
+
 }
