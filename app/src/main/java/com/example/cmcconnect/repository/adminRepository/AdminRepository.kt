@@ -1,5 +1,6 @@
 package com.example.cmcconnect.repository.adminRepository
 
+import com.example.cmcconnect.model.AnsweredRequestsWithRequestDetails
 import com.example.cmcconnect.model.FiliereDto
 import com.example.cmcconnect.model.GroupToPost
 import com.example.cmcconnect.model.GroupeDto
@@ -19,5 +20,5 @@ interface AdminRepository {
     suspend fun adminReplyToStudent(reply: StudentRequestForAdminReplyToPost): Boolean
     suspend fun getFormateursByPoleId(idPole: Int): List<PoleTeacherDto>
     suspend fun addGroup(group: GroupToPost): Boolean
-    suspend fun getAnsweredRequests(idAdmin: Int): List<RequestDto>
+    suspend fun getAnsweredRequests(idAdmin: Int): List<AnsweredRequestsWithRequestDetails>
 }

@@ -161,7 +161,7 @@ class TeacherRepositoryImpl @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = postgrest.from("request")
-                    .select(Columns.raw("id, motif, id_student_fk, id_teacher_fk, id_admin_fk, student(id, name, email, phone, image, id_groupe_fk, id_type_user_fk, groupe(id, name, id_year_fk, id_filiere_fk)), answered")) {
+                    .select(Columns.raw("id, motif, id_student_fk, id_type_request_fk, type_request(id, name), id_teacher_fk, id_admin_fk, student(id, name, email, phone, image, id_groupe_fk, id_type_user_fk, groupe(id, name, id_year_fk, id_filiere_fk)), answered")) {
                         filter {
                             eq("id_teacher_fk", idTeacher)
                             eq("answered", false)

@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Type de demande"
+            android:textAlignment="center"
             android:textSize="26sp"
             style="@style/TextSemiBold"
             android:layout_marginTop="8dp"
@@ -72,7 +73,7 @@
             android:layout_height="24dp"
             android:src="@drawable/icon_calendar_date"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="12dp" />
 
         <TextView
             android:id="@+id/date_input"
@@ -80,11 +81,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="18/11/2024"
-            android:textAlignment="center"
-            android:textSize="15sp"
+            android:text=""
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
             android:background="@null"
-            android:padding="10dp"
             tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>

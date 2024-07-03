@@ -1,6 +1,7 @@
 package com.example.cmcconnect.repository.adminRepository
 
 import android.util.Log
+import com.example.cmcconnect.model.AnsweredRequestsWithRequestDetails
 import com.example.cmcconnect.model.FiliereDto
 import com.example.cmcconnect.model.GroupToPost
 import com.example.cmcconnect.model.GroupeDto
@@ -135,14 +136,15 @@ class AdminRepositoryImpl @Inject constructor(private val postgrest: Postgrest) 
         }
     }
 
-    override suspend fun getAnsweredRequests(idAdmin: Int): List<RequestDto> {
+    override suspend fun getAnsweredRequests(idAdmin: Int): List<AnsweredRequestsWithRequestDetails> {
         return withContext(Dispatchers.IO) {
-                val answeredRequests = postgrest.from("admin_response").select(Columns.list("request(*)")) {
+                val answeredRequests = postgrest.from("admin_response").select(columns = Columns.list("id, response, admin(id, name, email, phone, image, id_pole_fk, id_type_user_fk), student(id, name, email, phone, image, id_type_user_fk, id_groupe_fk, groupe(id, name)), request(id, motif, id_student_fk, id_teacher_fk, id_admin_fk, answered)")) {
                     filter {
                         eq("id_admin_fk", idAdmin)
                     }
-                }.decodeList<RequestDto>()
-            answeredRequests
+                }
+            val requests = answeredRequests.decodeList<AnsweredRequestsWithRequestDetails>()
+            requests
         }
     }
 }
