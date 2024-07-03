@@ -55,11 +55,12 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/name_tv"
                         style="@style/TextRegular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="nom d'utilisateur"
+                        tools:text="nom d'utilisateur"
                         android:textSize="18sp" />
                 </RelativeLayout>
 
@@ -76,11 +77,12 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/email_tv"
                         style="@style/TextRegular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="example@example.com"
+                        tools:text="example@example.com"
                         android:textSize="18sp" />
                 </RelativeLayout>
 
@@ -97,11 +99,12 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/phone_tv"
                         style="@style/TextRegular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="+212*******"
+                        tools:text="+212*******"
                         android:textSize="18sp" />
                 </RelativeLayout>
 
@@ -109,23 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    >
-
-                    <TextView
-                        style="@style/TextSemiBold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Password"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        style="@style/TextRegular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="*****aa"
-                        android:textSize="18sp" />
-                </RelativeLayout>
+                    />
 
                 <Button
                     style="@style/TextSemiBold"
