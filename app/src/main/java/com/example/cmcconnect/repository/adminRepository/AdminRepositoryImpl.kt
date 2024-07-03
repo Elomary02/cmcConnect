@@ -9,13 +9,13 @@ import com.example.cmcconnect.model.JustifWithStudent
 import com.example.cmcconnect.model.PoleDto
 import com.example.cmcconnect.model.RequestWithStudent
 import com.example.cmcconnect.model.PoleTeacherDto
+import com.example.cmcconnect.model.RequestDto
 import com.example.cmcconnect.model.StudentDto
 import com.example.cmcconnect.model.StudentRequestForAdminReplyToPost
 import com.example.cmcconnect.model.StudentRequestReplyToPost
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
-import io.github.jan.supabase.postgrest.query.Columns
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -135,4 +135,15 @@ class AdminRepositoryImpl @Inject constructor(private val postgrest: Postgrest) 
         }
     }
 
+    override suspend fun getAnsweredRequests(idAdmin: Int): List<RequestDto> {
+        return withContext(Dispatchers.IO) {
+                val answeredRequests = postgrest.from("admin_response").select(Columns.list("request(*)")) {
+                    filter {
+                        eq("id_admin_fk", idAdmin)
+                    }
+                }.decodeList<RequestDto>()
+            answeredRequests
+        }
+    }
 }
+
