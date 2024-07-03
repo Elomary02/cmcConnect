@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cmcconnect.R
 import com.example.cmcconnect.adapters.adminAdapters.FilieresGroupesSpinnerAdapter
 import com.example.cmcconnect.adapters.adminAdapters.GroupsRvAdapter
 import com.example.cmcconnect.adapters.teacherAdapters.GroupesRvAdapter
@@ -37,6 +39,7 @@ class FiliereFragment : Fragment() {
         val view = binding.root
 
         val filiereSpinner : Spinner = binding.spinnerGroups
+        val addGroupBtn : Button = binding.addGroupBtn
 
         filiereViewModel.filieresLiveData.observe(viewLifecycleOwner){
             filieres-> val adapter = FilieresGroupesSpinnerAdapter(requireContext(),filieres)
@@ -62,6 +65,13 @@ class FiliereFragment : Fragment() {
                 if (selectedFiliereId != null) {
                     filiereViewModel.getGroupsByFiliereId(selectedFiliereId)
                 }
+                addGroupBtn.setOnClickListener {
+                    val bundle = Bundle().apply {
+                        putSerializable("selectedFiliere", selectedFiliere)
+                    }
+                    findNavController().navigate(R.id.action_id_filiereFragment_to_adminAddGroupFragment,bundle)
+
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -69,6 +79,7 @@ class FiliereFragment : Fragment() {
             }
 
         }
+
         val rvGroups : RecyclerView = binding.groupsRv
         rvGroups.layoutManager = LinearLayoutManager(requireContext())
         val rvAdapter = GroupsRvAdapter(findNavController())

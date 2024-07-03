@@ -18,11 +18,13 @@
             android:text="@string/all_demands"
             android:textSize="29sp"
             style="@style/TextSemiBold"
-            android:layout_margin="30dp"/>
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_requests"
-            android:layout_width="348dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="22dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"

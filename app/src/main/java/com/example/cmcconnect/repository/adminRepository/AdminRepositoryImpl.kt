@@ -1,6 +1,8 @@
 package com.example.cmcconnect.repository.adminRepository
 
+import android.util.Log
 import com.example.cmcconnect.model.FiliereDto
+import com.example.cmcconnect.model.GroupToPost
 import com.example.cmcconnect.model.GroupeDto
 import com.example.cmcconnect.model.PoleDto
 import com.example.cmcconnect.model.PoleTeacherDto
@@ -56,6 +58,18 @@ class AdminRepositoryImpl @Inject constructor(private val postgrest: Postgrest) 
                         }
                     }.decodeList<PoleTeacherDto>()
             listPoleTeacher
+        }
+    }
+
+    override suspend fun addGroup(group: GroupToPost): Boolean {
+        return try {
+            withContext(Dispatchers.IO){
+                postgrest.from("groupe").insert(group)
+                true
+            }
+        }catch (e:Exception){
+            Log.e("add group", "Error adding group", e)
+            false
         }
     }
 
