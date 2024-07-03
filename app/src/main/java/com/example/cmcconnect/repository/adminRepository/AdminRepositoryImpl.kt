@@ -2,17 +2,20 @@ package com.example.cmcconnect.repository.adminRepository
 
 import android.util.Log
 import com.example.cmcconnect.model.FiliereDto
+import com.example.cmcconnect.model.GroupToPost
 import com.example.cmcconnect.model.GroupeDto
 import com.example.cmcconnect.model.JustifDto
 import com.example.cmcconnect.model.JustifWithStudent
 import com.example.cmcconnect.model.PoleDto
 import com.example.cmcconnect.model.RequestWithStudent
+import com.example.cmcconnect.model.PoleTeacherDto
 import com.example.cmcconnect.model.StudentDto
 import com.example.cmcconnect.model.StudentRequestForAdminReplyToPost
 import com.example.cmcconnect.model.StudentRequestReplyToPost
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
+import io.github.jan.supabase.postgrest.query.Columns
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -42,10 +45,10 @@ class AdminRepositoryImpl @Inject constructor(private val postgrest: Postgrest) 
     }
 
     override suspend fun getStudentsByGroupId(idGroup: Int): List<StudentDto> {
-        return with(Dispatchers.IO){
+        return with(Dispatchers.IO) {
             val lisStud = postgrest.from("student").select {
                 filter {
-                    eq("id_groupe_fk",idGroup)
+                    eq("id_groupe_fk", idGroup)
                 }
             }.decodeList<StudentDto>()
             lisStud
@@ -103,6 +106,31 @@ class AdminRepositoryImpl @Inject constructor(private val postgrest: Postgrest) 
             }
         } catch (e: Exception) {
             Log.e("post ressource", "Error posting ressource", e)
+            false
+        }
+    }
+
+    override suspend fun getFormateursByPoleId(idPole: Int): List<PoleTeacherDto> {
+        return withContext(Dispatchers.IO) {
+            val listPoleTeacher =
+                postgrest.from("pole_teacher")
+                    .select(columns = Columns.list("id,pole(id),teacher(id,name,email,phone,image,id_type_user_fk)")) {
+                        filter {
+                            eq("id_pole_fk", idPole)
+                        }
+                    }.decodeList<PoleTeacherDto>()
+            listPoleTeacher
+        }
+    }
+
+    override suspend fun addGroup(group: GroupToPost): Boolean {
+        return try {
+            withContext(Dispatchers.IO){
+                postgrest.from("groupe").insert(group)
+                true
+            }
+        }catch (e:Exception){
+            Log.e("add group", "Error adding group", e)
             false
         }
     }

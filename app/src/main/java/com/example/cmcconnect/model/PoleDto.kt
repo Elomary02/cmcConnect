@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PoleDto (
-    val id: Int,
-    val name: String
+    val id: Int? = null,
+    val name: String? = null
 ): java.io.Serializable

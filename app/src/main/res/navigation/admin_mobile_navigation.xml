@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_id_filiereFragment_to_studentsByGroupeFragment"
             app:destination="@id/studentsByGroupeFragment" />
+        <action
+            android:id="@+id/action_id_filiereFragment_to_adminAddGroupFragment"
+            app:destination="@id/adminAddGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/formateursAssignedGroupsPopupFragment"
@@ -67,6 +70,15 @@
         <argument
             android:name="group"
             app:argType="com.example.cmcconnect.model.GroupeDto" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminAddGroupFragment"
+        android:name="com.example.cmcconnect.admin.adminAddGroup.AdminAddGroupFragment"
+        android:label="admin_fragment_admin_add_group"
+        tools:layout="@layout/admin_fragment_admin_add_group" >
+        <argument
+            android:name="selectedFiliere"
+            app:argType="com.example.cmcconnect.model.FiliereDto" />
     </fragment>
 
 </navigation>
