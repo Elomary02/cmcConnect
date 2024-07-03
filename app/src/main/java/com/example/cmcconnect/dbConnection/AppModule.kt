@@ -45,7 +45,7 @@ object AppModule {
     fun provideStudentRepository(postgrest: Postgrest, @ApplicationContext context: Context, supabase: SupabaseClient): StudentRepository = StudentRepositoryImp(context, postgrest, supabase)
 
     @Provides
-    fun provideTeacherRepository(postgrest: Postgrest) : TeacherRepository = TeacherRepositoryImpl(postgrest)
+    fun providesTeacherRepository(postgrest: Postgrest, @ApplicationContext context: Context, supabase: SupabaseClient): TeacherRepository = TeacherRepositoryImpl(context, postgrest, supabase)
     @Provides
     fun provideAdminRepository(postgrest: Postgrest):AdminRepository = AdminRepositoryImpl(postgrest)
 }
