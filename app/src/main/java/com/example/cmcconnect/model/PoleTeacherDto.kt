@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PoleTeacherDto (
-    val id: Int,
-    val id_pole_fk: PoleDto,
-    val id_teacher_fk: TeacherDto
+    val id: Int? =null,
+    val pole: PoleDto? = null,
+    val teacher: TeacherDto? = null
 ): java.io.Serializable

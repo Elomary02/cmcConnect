@@ -3,8 +3,10 @@ package com.example.cmcconnect.repository.adminRepository
 import com.example.cmcconnect.model.FiliereDto
 import com.example.cmcconnect.model.GroupeDto
 import com.example.cmcconnect.model.PoleDto
+import com.example.cmcconnect.model.PoleTeacherDto
 import com.example.cmcconnect.model.StudentDto
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.postgrest.query.Columns
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -34,13 +36,26 @@ class AdminRepositoryImpl @Inject constructor(private val postgrest: Postgrest) 
     }
 
     override suspend fun getStudentsByGroupId(idGroup: Int): List<StudentDto> {
-        return with(Dispatchers.IO){
+        return with(Dispatchers.IO) {
             val lisStud = postgrest.from("student").select {
                 filter {
-                    eq("id_groupe_fk",idGroup)
+                    eq("id_groupe_fk", idGroup)
                 }
             }.decodeList<StudentDto>()
             lisStud
+        }
+    }
+
+    override suspend fun getFormateursByPoleId(idPole: Int): List<PoleTeacherDto> {
+        return withContext(Dispatchers.IO) {
+            val listPoleTeacher =
+                postgrest.from("pole_teacher")
+                    .select(columns = Columns.list("id,pole(id),teacher(id,name,email,phone,image,id_type_user_fk)")) {
+                        filter {
+                            eq("id_pole_fk", idPole)
+                        }
+                    }.decodeList<PoleTeacherDto>()
+            listPoleTeacher
         }
     }
 
