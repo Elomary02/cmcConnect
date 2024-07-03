@@ -10,6 +10,7 @@
     android:paddingVertical="18dp"
     android:orientation="vertical">
     <TextView
+        android:id="@+id/student_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Nom d'étudiant "
@@ -17,6 +18,7 @@
         android:textColor="@color/black"
         android:textSize="26sp"/>
     <TextView
+        android:id="@+id/motif_absence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Motif:Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam placerat 
@@ -27,6 +29,7 @@ molestie ipsum."
         android:layout_marginTop="10dp"
         />
     <Button
+        android:id="@+id/btn_SeeDetails"
         android:layout_width="223dp"
         android:layout_height="45dp"
         android:text="@string/details"

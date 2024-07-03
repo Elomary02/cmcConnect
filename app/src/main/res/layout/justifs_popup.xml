@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/name_student"
             style="@style/TextMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,6 +24,7 @@
             tools:text="Nom d'étudiant " />
 
         <ImageView
+            android:id="@+id/exit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -30,6 +32,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/group_student"
         style="@style/TextMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,6 +41,7 @@
         tools:text="Group d'étudiant " />
 
     <TextView
+        android:id="@+id/justif_motif_admin"
         style="@style/TextRegular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

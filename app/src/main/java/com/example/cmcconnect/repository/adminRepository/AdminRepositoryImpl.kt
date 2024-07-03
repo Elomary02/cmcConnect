@@ -1,10 +1,18 @@
 package com.example.cmcconnect.repository.adminRepository
 
+import android.util.Log
 import com.example.cmcconnect.model.FiliereDto
 import com.example.cmcconnect.model.GroupeDto
+import com.example.cmcconnect.model.JustifDto
+import com.example.cmcconnect.model.JustifWithStudent
 import com.example.cmcconnect.model.PoleDto
+import com.example.cmcconnect.model.RequestWithStudent
 import com.example.cmcconnect.model.StudentDto
+import com.example.cmcconnect.model.StudentRequestForAdminReplyToPost
+import com.example.cmcconnect.model.StudentRequestReplyToPost
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.postgrest.query.Order
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -41,6 +49,61 @@ class AdminRepositoryImpl @Inject constructor(private val postgrest: Postgrest) 
                 }
             }.decodeList<StudentDto>()
             lisStud
+        }
+    }
+
+    override suspend fun loadJustifsForAdmin(idAdmin: Int): List<JustifWithStudent> {
+        return withContext(Dispatchers.IO) {
+            val response = postgrest.from("justif")
+                .select(Columns.raw("id, motif, file, id_student_fk, id_admin_fk, student(id, name, email, phone, image, id_groupe_fk, id_type_user_fk, groupe(id, name, id_year_fk, id_filiere_fk))")) {
+                    filter {
+                        eq("id_admin_fk", idAdmin)
+                    }
+                    order("id", order = Order.DESCENDING)
+                }
+            Log.d("SupabaseResponse", response.data)
+            val justifs = response.decodeList<JustifWithStudent>()
+            justifs
+        }
+    }
+
+    override suspend fun loadStudentRequestsForAdmin(idAdmin: Int): List<RequestWithStudent> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = postgrest.from("request")
+                    .select(Columns.raw("id, motif, id_student_fk, id_type_request_fk, type_request(id, name), id_teacher_fk, id_admin_fk, student(id, name, email, phone, image, id_groupe_fk, id_type_user_fk, groupe(id, name, id_year_fk, id_filiere_fk)), answered")) {
+                        filter {
+                            eq("id_admin_fk", idAdmin)
+                            eq("answered", false)
+                        }
+                        order("id", order = Order.DESCENDING)
+                    }
+
+                Log.d("SupabaseResponse", response.data)
+
+                val requests = response.decodeList<RequestWithStudent>()
+                requests
+            } catch (e: Exception) {
+                Log.e("RepositoryError", "Error loading student requests", e)
+                emptyList()
+            }
+        }
+    }
+
+    override suspend fun adminReplyToStudent(reply: StudentRequestForAdminReplyToPost): Boolean {
+        return try {
+            withContext(Dispatchers.IO) {
+                postgrest.from("admin_response").insert(reply)
+                postgrest.from("request").update(mapOf("answered" to true)) {
+                    filter {
+                        eq("id", reply.id_request_fk)
+                    }
+                }
+                true
+            }
+        } catch (e: Exception) {
+            Log.e("post ressource", "Error posting ressource", e)
+            false
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.cmcconnect.repository.studentRepository
 import android.net.Uri
 import android.util.Log
 import android.content.Context
+import android.webkit.MimeTypeMap
 import io.github.jan.supabase.SupabaseClient
 import com.example.cmcconnect.model.AdminDto
 import com.example.cmcconnect.model.JustifToSend
@@ -196,13 +197,24 @@ class StudentRepositoryImp @Inject constructor(
 
     override suspend fun uploadFileToBucket(uri: Uri, fileName: String): String? {
         return try {
-            val inputStream = context.contentResolver.openInputStream(uri)
+            val contentResolver = context.contentResolver
+            val mimeTypeMap = MimeTypeMap.getSingleton()
+            val mimeType = contentResolver.getType(uri)
+            val fileExtension = mimeType?.let { mimeTypeMap.getExtensionFromMimeType(it) }
+
+            val finalFileName = if (fileExtension != null) {
+                "$fileName.$fileExtension"
+            } else {
+                fileName
+            }
+
+            val inputStream = contentResolver.openInputStream(uri)
             val byteArray = inputStream?.readBytes()
             inputStream?.close()
 
             if (byteArray != null) {
-                supabase.storage.from("justif_docs").upload(fileName, byteArray)
-                "https://qoyjtvmvqtubjbwrlhgq.supabase.co/storage/v1/object/public/justif_docs/$fileName"
+                supabase.storage.from("justif_docs").upload(finalFileName, byteArray)
+                "https://qoyjtvmvqtubjbwrlhgq.supabase.co/storage/v1/object/public/justif_docs/$finalFileName"
             } else {
                 null
             }

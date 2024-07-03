@@ -3,6 +3,7 @@ package com.example.cmcconnect.repository.teacherRepository
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.webkit.MimeTypeMap
 import com.example.cmcconnect.model.CoursDto
 import com.example.cmcconnect.model.GroupeDto
 import com.example.cmcconnect.model.ModuleDto
@@ -57,13 +58,24 @@ class TeacherRepositoryImpl @Inject constructor(
 
     override suspend fun uploadResourceToBucket(uri: Uri, fileName: String): String? {
         return try {
-            val inputStream = context.contentResolver.openInputStream(uri)
+            val contentResolver = context.contentResolver
+            val mimeTypeMap = MimeTypeMap.getSingleton()
+            val mimeType = contentResolver.getType(uri)
+            val fileExtension = mimeType?.let { mimeTypeMap.getExtensionFromMimeType(it) }
+
+            val finalFileName = if (fileExtension != null) {
+                "$fileName.$fileExtension"
+            } else {
+                fileName
+            }
+
+            val inputStream = contentResolver.openInputStream(uri)
             val byteArray = inputStream?.readBytes()
             inputStream?.close()
 
             if (byteArray != null) {
-                supabase.storage.from("ressource_file").upload(fileName, byteArray)
-                "https://qoyjtvmvqtubjbwrlhgq.supabase.co/storage/v1/object/public/ressource_file/$fileName"
+                supabase.storage.from("ressource_file").upload(finalFileName, byteArray)
+                "https://qoyjtvmvqtubjbwrlhgq.supabase.co/storage/v1/object/public/ressource_file/$finalFileName"
             } else {
                 null
             }

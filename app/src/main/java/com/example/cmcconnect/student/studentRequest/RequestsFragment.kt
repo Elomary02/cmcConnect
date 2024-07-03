@@ -30,16 +30,20 @@ class RequestsFragment : Fragment() {
         val requestsSpinner: Spinner = binding.spinnerRequests
         val teachersSpinner: Spinner = binding.spinnerTeachers
 
+        // Observe and populate request spinner
         requestsViewModel.allRequestsLiveData.observe(viewLifecycleOwner) { requests ->
             val requestsNames = requests.map { it.name }
             val requestSpinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, requestsNames)
             requestSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             requestsSpinner.adapter = requestSpinnerAdapter
 
+            // Set up item selected listener for request spinner
             requestsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    if (requests[position].id != 1) {
+                    val selectedRequestType = requests[position].id
+                    if (selectedRequestType != 1) {
                         teachersSpinner.isEnabled = false
+                        teachersSpinner.setSelection(0) // Reset the teacher spinner selection
                     } else {
                         teachersSpinner.isEnabled = true
                     }
@@ -49,6 +53,7 @@ class RequestsFragment : Fragment() {
             }
         }
 
+        // Observe and populate teacher spinner
         requestsViewModel.teachersForStudent.observe(viewLifecycleOwner) { teachers ->
             val teacherNames = teachers.map { it.name }
             val teacherSpinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, teacherNames)
@@ -61,6 +66,7 @@ class RequestsFragment : Fragment() {
         requestsViewModel.getStudentAdmin(idStudent)
         requestsViewModel.loadRequests()
 
+        // Set up request button click listener
         binding.requestButton.setOnClickListener {
             val motif = binding.requestMotifEditText.text.toString()
             val selectedRequestType = requestsSpinner.selectedItemPosition + 1
@@ -71,8 +77,10 @@ class RequestsFragment : Fragment() {
             }
 
             var selectedAdminId: Int? = null
-            requestsViewModel.adminForStudent.value?.let { admin ->
-                selectedAdminId = admin.id
+            if (selectedRequestType != 1) {
+                requestsViewModel.adminForStudent.value?.let { admin ->
+                    selectedAdminId = admin.id
+                }
             }
 
             if (motif.isNotEmpty()) {
@@ -84,7 +92,7 @@ class RequestsFragment : Fragment() {
 
         requestsViewModel.sendRequestStatus.observe(viewLifecycleOwner) { success ->
             if (success) {
-                Log.d("Success","Posted request")
+                Log.d("Success", "Posted request")
             } else {
                 Log.d("Failure", "Didn't post request")
             }
